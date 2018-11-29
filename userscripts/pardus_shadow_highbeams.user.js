@@ -4,13 +4,14 @@
 // @author      Tsunders
 // @description Shines a light on shadows so you don't miss them.
 // @include     http*://*.pardus.at/main.php*
-// @version     1.0
+// @version     1.1
 // @grant       none
 // @updateURL 	https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/shadow_highbeams.user.js
 // @downloadURL https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/shadow_highbeams.user.js
 // @icon 		http://static.pardus.at/img/std/opponents/shadow.png
 // ==/UserScript==
 
+// 1.1 2018 november 28 download migration
 // 1.0 2018 november 08 initial creation
 
 function HighlightShadows() {

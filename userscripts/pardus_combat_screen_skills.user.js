@@ -2,7 +2,7 @@
 // @name         Pardus Combat Screen Skills
 // @namespace    Pardus
 // @author       Tro, updated by Tsunder
-// @version      1.4.1.1
+// @version      1.4.2
 // @description  Adds your combat skills onto the combat page
 // @downloadURL  https://gist.github.com/Tsunder/4275cdde4f0a8608d090e41d16300307/raw/pardus_combat_screen_skills.user.js
 // @updateURL    https://gist.github.com/Tsunder/4275cdde4f0a8608d090e41d16300307/raw/pardus_combat_screen_skills.user.js
@@ -16,7 +16,7 @@
 
 /*
 Version History
-
+2018-11-28 - 1.4.2 new download url
 2018-10-24 - 1.4 add button to check skills
              1.4.1 refactor parsing skills
              1.4.1.1 url update

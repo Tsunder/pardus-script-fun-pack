@@ -14,10 +14,11 @@
 // Much thanks to Tro who made pardus troder, which was originally the vast majority of the code. https://github.com/Tro95/Pardus-Troder/
 // Much thanks to Kuilin who made everything better, refactored the main bulk of the code.
 
-
 // version history
-// 0.1 made and published
-// 0.2 refactored by kuilin. Extended. added some commodities to not-trash by default to prevent some accidents
+// 0.2.1	download location migration
+// 0.2		refactored by kuilin. Extended. added some commodities to not-trash by default to prevent some accidents
+// 0.1		made and published
+
 (function () {
     'use strict';
 

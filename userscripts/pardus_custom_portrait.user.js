@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Custom Pilot Portraits
 // @namespace    Tsunders
-// @version      0.1.1.5
+// @version      0.1.2
 // @description  Replaces the pilot's portrait in various contexts that it shows up.
 // @author       Tsunders
 // @match        *://*.pardus.at/overview_stats.php*
@@ -17,6 +17,7 @@
 
 // known bugs: chat doesn't update new messages with modified portraits, but checks once every second instead.
 
+// 0.1.2   url updates
 // 0.1.1.5 url updates
 // 0.1.1.4 profile url
 // 0.1.1.3 clean up. makeshift chat updater.

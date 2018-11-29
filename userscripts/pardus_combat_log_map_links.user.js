@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Combat Log Sector Links
 // @namespace    Pardus
-// @version      0.1.2.2
+// @version      0.1.3
 // @description  Adds links to the sector map of combat logs
 // @author       Tsunders
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js
@@ -11,11 +11,12 @@
 // @grant        none
 // @icon         http://www.pardus.at/favicon.ico
 
-// version 0.1.2.2 url fix
-// version 0.1.2.1 url update
-// version 0.1.2 compatilibty with some combat uploaders. link now shows near top of page.
-// version 0.1.1 fluff fix
-// version 0.1  initial publishing
+// 0.1.3 download migration and icon
+// 0.1.2.2 url fix
+// 0.1.2.1 url update
+// 0.1.2 compatilibty with some combat uploaders. link now shows near top of page.
+// 0.1.1 fluff fix
+// 0.1  initial publishing
 
 // ==/UserScript==
 

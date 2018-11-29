@@ -2,7 +2,7 @@
 // ==UserScript==
 // @name           Pardus Multi Message
 // @namespace      http://userscripts.xcom-alliance.info/
-// @version        3.4
+// @version        3.5
 // @author         Miche (Orion) / Sparkle (Artemis), Pincedragon (Orion)
 // @description    Enhances the Pardus message window to allow multiple recipients seperated by commas or newlines as well as configurable lists of pilot names that remain independent across universe. Based on work by Ivar (Artemis).
 // @include        http*://*.pardus.at/sendmsg.php*
@@ -17,6 +17,9 @@
 
 /*****************************************************************************************
 	Version Information
+	3.5 ( 28-Nov-2018)
+	- download migration
+	
     3.4 ( 31-Oct-2018)
     - added compatibility with PardusMessaging
 
