@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DropScript
 // @namespace    Tsunders
-// @version      0.2
+// @version      0.2.1
 // @description  Adds a button to select all "trash" in drop screen of Pardus. Edit script to define which commodities are trash
 // @author       Tsunders
 // @match        *://*.pardus.at/drop_cargo.php*
