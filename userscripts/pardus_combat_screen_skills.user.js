@@ -4,8 +4,8 @@
 // @author       Tro, updated by Tsunder
 // @version      1.4.2
 // @description  Adds your combat skills onto the combat page
-// @downloadURL  https://gist.github.com/Tsunder/4275cdde4f0a8608d090e41d16300307/raw/pardus_combat_screen_skills.user.js
-// @updateURL    https://gist.github.com/Tsunder/4275cdde4f0a8608d090e41d16300307/raw/pardus_combat_screen_skills.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_screen_skills.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_screen_skills.user.js
 // @include      http*://*.pardus.at/ship2opponent_combat.php*
 // @grant        GM_xmlhttpRequest
 // @connect      *
