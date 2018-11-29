@@ -9,6 +9,8 @@
 // @include      http*://*.pardus.at/ship2opponent_combat.php*
 // @grant        GM_xmlhttpRequest
 // @connect      *
+// @icon         http://www.pardus.at/favicon.ico
+
 // ==/UserScript==
 
 

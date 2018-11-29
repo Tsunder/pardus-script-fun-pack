@@ -9,8 +9,9 @@
 // @match        *://*.pardus.at/profile.php?*
 // @match        *://chat.pardus.at/chat.php*
 // @grant        none
-// @downloadurl  https://gist.github.com/Tsunder/ac121bf866d1bfbd1993c7d5c3d4093f/raw/custom%2520portrait.user.js
-// @updateurl    https://gist.github.com/Tsunder/ac121bf866d1bfbd1993c7d5c3d4093f/raw/custom%2520portrait.user.js
+// @downloadurl  https://gist.github.com/Tsunder/ac121bf866d1bfbd1993c7d5c3d4093f/raw/pardus_custom_portrait.user.js
+// @updateurl    https://gist.github.com/Tsunder/ac121bf866d1bfbd1993c7d5c3d4093f/raw/pardus_custom_portrait.user.js
+// @icon         http://www.pardus.at/favicon.ico
 
 // ==/UserScript==
 

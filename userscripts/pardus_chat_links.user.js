@@ -4,9 +4,10 @@
 // @author         Lucky, (C) 2009-2013, tsunders 2018
 // @version        0.2.1
 // @description    Pardus chat links
-// @downloadurl    https://gist.github.com/Tsunder/e60e91f51808a2ec0f3296b7758d65f5/raw/e03058bb98c8479ea652240b9cd47e4dd43c26cb/pardus_chat_links.user.js
-// @updateurl      https://gist.github.com/Tsunder/e60e91f51808a2ec0f3296b7758d65f5/raw/e03058bb98c8479ea652240b9cd47e4dd43c26cb/pardus_chat_links.user.js
+// @downloadurl    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js
+// @updateurl      https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js
 // @include        http*://chat.pardus.at/chattext.php*
+// @icon           http://www.pardus.at/favicon.ico
 // ==/UserScript==
 
 

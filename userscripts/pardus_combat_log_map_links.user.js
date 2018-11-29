@@ -4,11 +4,12 @@
 // @version      0.1.2.2
 // @description  Adds links to the sector map of combat logs
 // @author       Tsunders
-// @updateURL    https://gist.github.com/Tsunder/8bcf52bcc7799d1356befa29a64c2296/raw/pardus_combat_log_map_links.user.js
-// @downloadURL  https://gist.github.com/Tsunder/8bcf52bcc7799d1356befa29a64c2296/raw/pardus_combat_log_map_links.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js
 // @match        http*://*.pardus.at/overview_combat_log.php*
 // @match        http*://*.pardus.at/combat_details.php*
 // @grant        none
+// @icon         http://www.pardus.at/favicon.ico
 
 // version 0.1.2.2 url fix
 // version 0.1.2.1 url update

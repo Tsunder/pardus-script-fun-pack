@@ -7,7 +7,7 @@
 // @match        *://*.pardus.at/drop_cargo.php*
 // @match        *://*.pardus.at/ship2ship_transfer.php*
 // @grant        none
-// @updateURL    https://gist.github.com/Tsunder/d02711725b9bd84a6624129d3f24e87e/raw/pardus_drop_trash.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_drop_trash.user.js
 // @icon         http://static.pardus.at/img/stdhq/res/hydrogen-fuel.png
 // ==/UserScript==
 

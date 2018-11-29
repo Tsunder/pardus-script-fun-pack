@@ -7,8 +7,8 @@
 // @description    Enhances the Pardus message window to allow multiple recipients seperated by commas or newlines as well as configurable lists of pilot names that remain independent across universe. Based on work by Ivar (Artemis).
 // @include        http*://*.pardus.at/sendmsg.php*
 // @include        http*://*.pardus.at/msgframe.php
-// @updateURL      https://gist.github.com/Tsunder/77e1e135362a21653da71e8e0e298576/raw/Pardus_Multi_Message.user.js
-// @downloadURL    https://gist.github.com/Tsunder/77e1e135362a21653da71e8e0e298576/raw/Pardus_Multi_Message.user.js
+// @updateURL      https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_multi_message.user.js
+// @downloadURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_multi_message.user.js
 // @icon           http://userscripts.xcom-alliance.info/multi_message/icon.png
 // @grant          GM_getValue
 // @grant          GM_setValue

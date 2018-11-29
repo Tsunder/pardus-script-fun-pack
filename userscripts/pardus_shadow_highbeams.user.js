@@ -6,8 +6,8 @@
 // @include     http*://*.pardus.at/main.php*
 // @version     1.0
 // @grant       none
-// @updateURL 	https://gist.github.com/Tsunder/cb4505a9faf7752d76d49274b34e04fe/raw/shadow%2520highbeams.user.js
-// @downloadURL https://gist.github.com/Tsunder/cb4505a9faf7752d76d49274b34e04fe/raw/shadow%2520highbeams.user.js
+// @updateURL 	https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/shadow_highbeams.user.js
+// @downloadURL https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/shadow_highbeams.user.js
 // @icon 		http://static.pardus.at/img/std/opponents/shadow.png
 // ==/UserScript==
 
