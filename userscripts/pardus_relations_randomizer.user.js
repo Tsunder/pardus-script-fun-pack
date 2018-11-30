@@ -71,7 +71,6 @@ to do:
         Array.from(document.querySelectorAll('td[width="30"]>span[style*="font-size:16px;color:"]')).forEach(function(e){
             e.innerText= "?"})
         Array.from(document.querySelectorAll('th[colspan="2"]~td[align="center"]~td[align="center"]')).forEach(function(e) {
-            console.log(e)
             e.children[0].innerText = "?";
             e.previousElementSibling.children[0].innerText = "?";
         });
