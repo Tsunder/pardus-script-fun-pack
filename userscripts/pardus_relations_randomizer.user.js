@@ -2,13 +2,20 @@
 // @name         Pardus Relations Randomizer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  randomizes the relations gains/losses. Why would you want this? I don't know.
+// @description  randomizes the relations gains/losses. Why would you want this? I don't know. WIP
 // @author       tsunders
 // @match        *://*.pardus.at/faction_relations.php*
 // @grant        none
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_relations_randomizer.user.js
 // @icon         http://static.pardus.at/img/std/forum/emoticons/emot-q.gif
 // ==/UserScript==
+
+/***
+to do: 
+ -the relations table
+ -using numbers instead of ?
+ - calculating a fake value for dispositions
+**/
 
 (function() {
     'use strict';
