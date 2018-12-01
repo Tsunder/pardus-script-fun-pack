@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DropScript
 // @namespace    Tsunders
-// @version      0.2.2
+// @version      0.2.3
 // @description  Adds a button to select all "trash" in drop screen of Pardus. Edit script to define which commodities are trash
 // @author       Tsunders
 // @match        *://*.pardus.at/drop_cargo.php*
@@ -15,7 +15,8 @@
 // Much thanks to Kuilin who made everything better, refactored the main bulk of the code.
 
 // version history
-// 0.2.2    slight re-ordering of buttons
+// 0.2.3	more lenient selecting to allow for holiday stuff.
+// 0.2.2	slight re-ordering of buttons
 // 0.2.1	download location migration
 // 0.2		refactored by kuilin. Extended. added some commodities to not-trash by default to prevent some accidents
 // 0.1		made and published
@@ -76,7 +77,7 @@
 	];
 
 	function selectTrash() {
-        let cargo = Array.from(document.querySelectorAll('form[action="' + document.location.pathname.substring(1) +'"] tr'))
+        let cargo = Array.from(document.querySelectorAll('form[action] tr'))
         if (document.location.pathname == "/ship2ship_transfer.php") {
             cargo.shift();
             cargo.shift();
