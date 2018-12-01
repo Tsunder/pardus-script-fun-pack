@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         DropScript
 // @namespace    Tsunders
-// @version      0.2.1
+// @version      0.2.2
 // @description  Adds a button to select all "trash" in drop screen of Pardus. Edit script to define which commodities are trash
 // @author       Tsunders
 // @match        *://*.pardus.at/drop_cargo.php*
@@ -15,6 +15,7 @@
 // Much thanks to Kuilin who made everything better, refactored the main bulk of the code.
 
 // version history
+// 0.2.2    slight re-ordering of buttons
 // 0.2.1	download location migration
 // 0.2		refactored by kuilin. Extended. added some commodities to not-trash by default to prevent some accidents
 // 0.1		made and published
@@ -38,7 +39,7 @@
 		'Nebula gas',
 		'Chemical supplies',
 		'Gem stones',
-		'Liquor',
+		//'Liquor',
 		//'Hydrogen fuel',
 		'Exotic matter',
 		'Optical components',
@@ -89,14 +90,17 @@
 	function addTrashButton() {
 	    let dropButton = document.getElementsByName("drop")[0] || document.querySelector("input[value=Transfer]");
         let selectTrashButton = document.createElement("input");
-	    selectTrashButton.id = "dropButton";
+        let selectSpan = document.createElement("span");
+	    selectSpan.appendChild(selectTrashButton);
+        selectTrashButton.id = "dropButton";
         selectTrashButton.type = "button";
 	    selectTrashButton.value = "Select Trash";
 	    selectTrashButton.addEventListener('click', selectTrash, false);
 	    selectTrashButton.style = dropButton.getAttribute("style");
-	    dropButton.after(selectTrashButton);
-        dropButton.after(document.createElement("br"));
-        dropButton.after(document.createElement("br"));
+	    dropButton.parentNode.insertBefore(selectSpan,dropButton.parentNode.lastChild.previousElementSibling);
 	}
 	addTrashButton();
+    if (location.pathname.indexOf("drop_cargo.php") > 0) {
+        document.title = "Drop Cargo";
+        }
 })();
