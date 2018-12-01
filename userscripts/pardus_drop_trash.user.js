@@ -39,7 +39,7 @@
 		'Nebula gas',
 		'Chemical supplies',
 		'Gem stones',
-		//'Liquor',
+		'Liquor',
 		//'Hydrogen fuel',
 		'Exotic matter',
 		'Optical components',
