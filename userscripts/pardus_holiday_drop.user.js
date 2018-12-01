@@ -2,7 +2,7 @@
 // @name         Drop To Donate
 // @namespace    Tsunders
 // @version      0.1
-// @description  When you drop stuff, you donate it instead! ^_^ Remember to disable this once the holiday drive is over.
+// @description  When you drop stuff, you donate it instead! ^_^ Remember to disable this once the holiday drive is over. Also disable if you want to drop undonatable stuff like illegal commodities.
 // @author       Tsunders
 // @match        *://*.pardus.at/drop_cargo.php*
 // @grant        none
