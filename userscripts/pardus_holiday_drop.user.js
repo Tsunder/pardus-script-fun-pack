@@ -15,19 +15,4 @@
 
     document.querySelector('form[action="drop_cargo.php"]').action = "xmas_charity.php"
     document.querySelector('input[name="drop"]').name = "donate";
-
-    /*let dropButton = document.querySelector('input[name="drop"]')
-    let donateButton = document.createElement("input")
-    donateButton.name = "donate";
-    donateButton.value = "Donate";
-    donateButton.type = "submit";
-    donateButton.style = dropButton.getAttribute("style");
-    donateButton.addEventListener("click",donation,false)
-
-    dropButton.hidden = "hidden";
-    dropButton.after(donateButton);
-
-    function donation(evtData){
-
-    }*/
 })();
