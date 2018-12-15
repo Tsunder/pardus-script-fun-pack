@@ -14,18 +14,18 @@
     'use strict';
 
     function addDonateButton() {
-	    let dropButton = document.getElementsByName("drop")[0];
+        let dropButton = document.getElementsByName("drop")[0];
         let donateButton = document.createElement("input");
         let donateSpan = document.createElement("span");
         donateButton.id = "donate";
         donateButton.name = "donate";
         donateButton.type = "submit";
-	    donateButton.value = "Donate";
-	    donateButton.addEventListener('click', donate, false);
-	    donateButton.style = dropButton.getAttribute("style");
+        donateButton.value = "Donate";
+        donateButton.addEventListener('click', donate, false);
+        donateButton.style = dropButton.getAttribute("style");
         donateSpan.appendChild(donateButton);
-	    dropButton.parentNode.insertBefore(donateSpan,dropButton.parentNode.lastChild.previousElementSibling);
-	}
+        dropButton.parentNode.insertBefore(donateSpan,dropButton.parentNode.lastChild.previousElementSibling);
+    }
     addDonateButton();
     function donate() {
         document.querySelector('form[action="drop_cargo.php"]').action = "xmas_charity.php"
