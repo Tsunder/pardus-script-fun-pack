@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Drop To Donate
+// @name         Donate from Cargo
 // @namespace    Tsunders
 // @version      0.3
 // @description  Adds a Donate button to your drop cargo screen! ^_^ Remember to disable this once the holiday drive is over!
