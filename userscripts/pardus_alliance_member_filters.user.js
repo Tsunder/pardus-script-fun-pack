@@ -2,7 +2,7 @@
 // @name         Pardus Alliance Member Filters (WIP)
 // @namespace    pardus.at
 // @version      0.1
-// @description  DOES NOTHING adds some sorting features to the members tab.
+// @description  adds some sorting features to the members tab.
 // @author       You
 // @match        *://*.pardus.at/alliance_members.php*
 // @grant        none
@@ -136,6 +136,7 @@ goals:
                 for (var _member in members) {
                     if (document.getElementById("exactbuildingslots").checked) {
                         if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) == i) {
+                            console.log(parseInt(members[_member].children[2].innerText.replace(/,/g,'')) + " " + getBuildingSlots(members[_member]) + " "+ getUsedBuildingSlots(members[_member]))
                             showMembers[_member] = true;
                         } else hideMembers[_member] = true;
                     }
@@ -158,7 +159,7 @@ goals:
     }
 
     function getBuildingSlots(member) {
-        var exp = parseInt(member.children[2].innerText.replace(',',''))
+        var exp = parseInt(member.children[2].innerText.replace(/,/g,''))
         return Math.floor(Math.log10(exp/10))
     }
 
@@ -166,4 +167,7 @@ goals:
         return member.children[4].querySelectorAll('img').length
     }
 
+    for (var i in members) {
+        members[i].children[4].append("free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
+    }
 })();
