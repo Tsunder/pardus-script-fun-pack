@@ -6,6 +6,7 @@
 // @author       You
 // @match        *://*.pardus.at/alliance_members.php*
 // @grant        none
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js
 // ==/UserScript==
 
 (function() {
