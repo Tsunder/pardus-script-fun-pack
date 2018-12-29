@@ -12,16 +12,16 @@
     'use strict';
 /*
 goals:
-- toggle for show all / by various activity
-- show free building slots
-
+- toggle for show all / by various activity -- done
+- show free building slots -- done!
+- multiple filters - not done. multiple filters works only iff one selection from multiple is chosen.
 */
-    // Your code here...
     var members = Array.from(document.getElementsByClassName('first')[0].parentElement.children);
-    var hiddenMembers = {}
+    members.shift(); //removes the top element
+    var showMembers = {}, hideMembers = {};
     var filters = {};
     var FILTER_OPTIONS = [
-        ["Inactivity",[
+        ["Show Only",[
           ["oneweek", "1 week"],
           ["onemonth", "1 month"],
           ["twomonths", "2 months"],
@@ -33,13 +33,17 @@ goals:
             ]
          ],
         ["Free Slots", [
-            ["zeroslots", 0],
+            ["zeroslots", "no slots"],
             ["oneslots", 1],
             ["twoslots", 2],
             ["threeslots", 3],
             ["fourslots", 4],
             ["fiveslots", 5],
             ["sixslots", 6]
+            ]
+         ],
+        ["Other Settings", [
+            ["exactbuildingslots", "Exactly selected amount of slots"]
             ]
          ]
         ];
@@ -111,26 +115,55 @@ goals:
 
     //this is the part where it is supposed to filter everyone according to everything.
     function filterMembers() {
+        hideMembers = {};
+        showMembers = {};
+        //filters for activity
+        //iterates over every activity setting, looks for the checkbox for that setting being ticked, and searches the member list for members that have the specific age of activity
         for (var i in FILTER_OPTIONS[0][1]) {
             if (document.getElementById(FILTER_OPTIONS[0][1][i][0]).checked) {
                 for (var _member in members) {
                     if (members[_member].innerHTML.includes(FILTER_HTMLS[FILTER_OPTIONS[0][1][i][0]])) {
-                       hiddenMembers[_member]= true;
-                       console.log("for: " + FILTER_OPTIONS[0][1][i][0] + " added " + _member)
+                       showMembers[_member] = true;
                     }
+                    else hideMembers[_member] = true;
                 }
             }
         }
-        console.log("total hiding: " + hiddenMembers);
-        for (var _member in members) {
-            if (hiddenMembers[_member] > -1) {
-                members[_member].parentElement.setAttribute("hidden","hidden");
-                delete hiddenMembers[_member];
-            } else {
-                members[_member].parentElement.removeAttribute("hidden");
-            }
 
+        //filters for open building slots
+        for (var i in FILTER_OPTIONS[1][1]) {
+            if (document.getElementById(FILTER_OPTIONS[1][1][i][0]).checked) {
+                for (var _member in members) {
+                    if (document.getElementById("exactbuildingslots").checked) {
+                        if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) == i) {
+                            showMembers[_member] = true;
+                        } else hideMembers[_member] = true;
+                    }
+                    else if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) >= i) {
+                        showMembers[_member] = true;
+                    }
+                    else hideMembers[_member] = true;
+                }
+            }
         }
-        console.log("all hid?" + hiddenMembers);
+
+        //does the hiding/showing
+        for (var _member in members) {
+            if (showMembers[_member] && !(hideMembers[_member])) {
+                members[_member].removeAttribute("hidden");
+            } else {
+                members[_member].setAttribute("hidden","hidden");
+            }
+        }
     }
+
+    function getBuildingSlots(member) {
+        var exp = parseInt(member.children[2].innerText.replace(',',''))
+        return Math.floor(Math.log10(exp/10))
+    }
+
+    function getUsedBuildingSlots(member) {
+        return member.children[4].querySelectorAll('img').length
+    }
+
 })();
