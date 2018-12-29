@@ -17,13 +17,14 @@ goals:
 
 */
     // Your code here...
-    var members = document.getElementsByClassName('first')[0].parentElement.children;
+    var members = Array.from(document.getElementsByClassName('first')[0].parentElement.children);
+    var hiddenMembers = {}
     var filters = {};
     var FILTER_OPTIONS = [
         ["Inactivity",[
           ["oneweek", "1 week"],
           ["onemonth", "1 month"],
-          ["twomonth", "2 months"],
+          ["twomonths", "2 months"],
           ["threemonths", "3 months"],
           ["fourmonths", "4 months"],
           ["fivemonths", "5 months"],
@@ -110,7 +111,26 @@ goals:
 
     //this is the part where it is supposed to filter everyone according to everything.
     function filterMembers() {
-        for (var i in FILTER_HTMLS) {
+        for (var i in FILTER_OPTIONS[0][1]) {
+            if (document.getElementById(FILTER_OPTIONS[0][1][i][0]).checked) {
+                for (var _member in members) {
+                    if (members[_member].innerHTML.includes(FILTER_HTMLS[FILTER_OPTIONS[0][1][i][0]])) {
+                       hiddenMembers[_member]= true;
+                       console.log("for: " + FILTER_OPTIONS[0][1][i][0] + " added " + _member)
+                    }
+                }
+            }
         }
+        console.log("total hiding: " + hiddenMembers);
+        for (var _member in members) {
+            if (hiddenMembers[_member] > -1) {
+                members[_member].parentElement.setAttribute("hidden","hidden");
+                delete hiddenMembers[_member];
+            } else {
+                members[_member].parentElement.removeAttribute("hidden");
+            }
+
+        }
+        console.log("all hid?" + hiddenMembers);
     }
 })();
