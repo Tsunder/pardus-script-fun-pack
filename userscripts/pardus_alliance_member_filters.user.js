@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters (WIP)
 // @namespace    pardus.at
-// @version      0.1
+// @version      0.2
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -23,18 +23,18 @@ goals:
     var filters = {};
     var FILTER_OPTIONS = [
         ["Show Only",[
-          ["oneweek", "1 week"],
-          ["onemonth", "1 month"],
-          ["twomonths", "2 months"],
-          ["threemonths", "3 months"],
-          ["fourmonths", "4 months"],
-          ["fivemonths", "5 months"],
-          ["sixmonths", "6 months"],
+          ["oneweek", "less than 1 week"],
+          ["onemonth", "over 1 week"],
+          ["twomonths", "1 month"],
+          ["threemonths", "2 months"],
+          ["fourmonths", "3 months"],
+          ["fivemonths", "4 months"],
+          ["sixmonths", "5 months"],
           ["longtime", "Too long"]
             ]
          ],
         ["Free Slots", [
-            ["zeroslots", "no slots"],
+            ["zeroslots", "0 slots"],
             ["oneslots", 1],
             ["twoslots", 2],
             ["threeslots", 3],
@@ -44,7 +44,7 @@ goals:
             ]
          ],
         ["Other Settings", [
-            ["exactbuildingslots", "Exactly selected amount of slots"]
+            ["exactbuildingslots", "Select only exact amount of slots"]
             ]
          ]
         ];
