@@ -3,7 +3,7 @@
 // @namespace    pardus.at
 // @version      0.1
 // @description  adds some sorting features to the members tab.
-// @author       You
+// @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
 // @grant        none
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js
