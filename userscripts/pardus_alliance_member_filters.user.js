@@ -59,7 +59,11 @@ goals:
         "sixmonths" : "more&nbsp;than&nbsp;<br><b>5</b>&nbsp;months<br>ago",
         "longtime": "more&nbsp;than&nbsp;<br><b>6</b>&nbsp;months<br>ago"
     }
+
     addControls();
+    for (var i in members) {
+        members[i].children[4].append("free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
+    }
 
     function addControls () {
         var _br = document.createElement("br");
@@ -74,6 +78,7 @@ goals:
         _controlElement.append(document.createElement("br"));
         addTable(_controlElement);
         addFilterButton(_controlElement);
+        addClearButton(_controlElement);
     }
 
     //adds all options to the options table.
@@ -111,7 +116,23 @@ goals:
         filterButton.type = "button";
         filterButton.value = "Filter";
         filterButton.addEventListener("click", filterMembers);
+        ele.append(document.createElement("br"))
         ele.append(filterButton)
+        ele.append(document.createElement("br"))
+    }
+
+    function addClearButton(ele) {
+        var filterButton = document.createElement("input");
+        filterButton.type = "button";
+        filterButton.value = "Clear";
+        filterButton.addEventListener("click", clearMembers);
+        ele.append(document.createElement("br"))
+        ele.append(filterButton)
+        ele.append(document.createElement("br"))
+    }
+
+    function clearMembers() {
+        members.forEach((e)=>{e.removeAttribute("hidden")});
     }
 
     //this is the part where it is supposed to filter everyone according to everything.
@@ -166,9 +187,5 @@ goals:
 
     function getUsedBuildingSlots(member) {
         return member.children[4].querySelectorAll('img').length
-    }
-
-    for (var i in members) {
-        members[i].children[4].append("free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
     }
 })();
