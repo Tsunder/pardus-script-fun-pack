@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters
 // @namespace    pardus.at
-// @version      0.3
+// @version      0.3.1
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -15,7 +15,7 @@
 
     var members = Array.from(document.getElementsByClassName('first')[0].parentElement.children);
     members.shift(); //removes the top element
-    var filters = [
+    var filters = [ //gets reset in filterMembers()
         [],
         [],
         []
@@ -61,7 +61,7 @@
 
     addControls();
     for (var i in members) {
-        members[i].children[4].append("free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
+        members[i].children[4].append("Free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
     }
 
     function addControls () {
