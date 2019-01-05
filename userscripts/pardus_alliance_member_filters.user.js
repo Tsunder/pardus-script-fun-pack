@@ -1,26 +1,25 @@
 // ==UserScript==
-// @name         Pardus Alliance Member Filters (WIP)
+// @name         Pardus Alliance Member Filters
 // @namespace    pardus.at
-// @version      0.2
+// @version      0.3
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
 // @grant        none
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js
 // ==/UserScript==
 
 (function() {
     'use strict';
-/*
-goals:
-- toggle for show all / by various activity -- done
-- show free building slots -- done!
-- multiple filters - not done. multiple filters works only iff one selection from multiple is chosen.
-*/
+
     var members = Array.from(document.getElementsByClassName('first')[0].parentElement.children);
     members.shift(); //removes the top element
-    var showMembers = {}, hideMembers = {};
-    var filters = {};
+    var filters = [
+        [],
+        [],
+        []
+    ];
     var FILTER_OPTIONS = [
         ["Show Only",[
           ["oneweek", "less than 1 week"],
@@ -74,10 +73,10 @@ goals:
 
         _controlElement.id = "controls";
         _controlElement.append(document.createElement("br"));
-        _controlElement.append("Show");
+        _controlElement.append("Member filters");
         _controlElement.append(document.createElement("br"));
         addTable(_controlElement);
-        addFilterButton(_controlElement);
+        //addFilterButton(_controlElement);
         addClearButton(_controlElement);
     }
 
@@ -102,6 +101,7 @@ goals:
                 var _optionCheck = document.createElement("input");
                 _optionCheck.type = "checkbox";
                 _optionCheck.id = FILTER_OPTIONS[_i][1][_j][0];
+                _optionCheck.addEventListener("click", filterMembers);
                 _checkRow.appendChild(_optionCheck);
                 _checkRow.appendChild(document.createTextNode(FILTER_OPTIONS[_i][1][_j][1]));
             }
@@ -111,15 +111,6 @@ goals:
         ele.append(table);
     }
 
-    function addFilterButton(ele) {
-        var filterButton = document.createElement("input");
-        filterButton.type = "button";
-        filterButton.value = "Filter";
-        filterButton.addEventListener("click", filterMembers);
-        ele.append(document.createElement("br"))
-        ele.append(filterButton)
-        ele.append(document.createElement("br"))
-    }
 
     function addClearButton(ele) {
         var filterButton = document.createElement("input");
@@ -133,46 +124,62 @@ goals:
 
     function clearMembers() {
         members.forEach((e)=>{e.removeAttribute("hidden")});
+        for (var i in FILTER_OPTIONS) {
+            for (var j in FILTER_OPTIONS[i][1]) {
+                document.getElementById(FILTER_OPTIONS[i][1][j][0]).checked = false
+            }
+        }
+
     }
 
     //this is the part where it is supposed to filter everyone according to everything.
     function filterMembers() {
-        hideMembers = {};
-        showMembers = {};
-        //filters for activity
-        //iterates over every activity setting, looks for the checkbox for that setting being ticked, and searches the member list for members that have the specific age of activity
-        for (var i in FILTER_OPTIONS[0][1]) {
-            if (document.getElementById(FILTER_OPTIONS[0][1][i][0]).checked) {
-                for (var _member in members) {
-                    if (members[_member].innerHTML.includes(FILTER_HTMLS[FILTER_OPTIONS[0][1][i][0]])) {
-                       showMembers[_member] = true;
-                    }
-                    else hideMembers[_member] = true;
+        //clears the filters
+        filters = [
+            [],
+            [],
+            []
+        ]
+
+        //finds  which filters are active
+        for (var i in FILTER_OPTIONS) {
+            for (var j in FILTER_OPTIONS[i][1]) {
+                if(document.getElementById(FILTER_OPTIONS[i][1][j][0]).checked){
+                    filters[i].push(j);
                 }
             }
         }
 
-        //filters for open building slots
-        for (var i in FILTER_OPTIONS[1][1]) {
-            if (document.getElementById(FILTER_OPTIONS[1][1][i][0]).checked) {
-                for (var _member in members) {
-                    if (document.getElementById("exactbuildingslots").checked) {
-                        if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) == i) {
-                            console.log(parseInt(members[_member].children[2].innerText.replace(/,/g,'')) + " " + getBuildingSlots(members[_member]) + " "+ getUsedBuildingSlots(members[_member]))
-                            showMembers[_member] = true;
-                        } else hideMembers[_member] = true;
-                    }
-                    else if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) >= i) {
-                        showMembers[_member] = true;
-                    }
-                    else hideMembers[_member] = true;
-                }
-            }
-        }
-
-        //does the hiding/showing
         for (var _member in members) {
-            if (showMembers[_member] && !(hideMembers[_member])) {
+
+            //checks player activity if needed
+            var _hasActivity = filters[0].length == 0;
+            for (var i in filters[0]) {
+                if (!_hasActivity) {
+                    if (members[_member].innerHTML.includes(FILTER_HTMLS[FILTER_OPTIONS[0][1][filters[0][i]][0]])) {
+                        _hasActivity = true;
+                    }
+                }
+            }
+
+            //checks building slots if needed
+            var _hasBuildings = filters[1].length == 0;
+            for (var i in filters[1]) {
+                if (!_hasBuildings) {
+                    //checks if it's looking for exact number of slots or equal or more
+                    if (filters[2][0]) {
+                        if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) == filters[1][i]) {
+                            _hasBuildings = true;
+                        }
+                    }
+                    else if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) >= filters[1][i]) {
+                        _hasBuildings = true;
+                    }
+                }
+            }
+
+            //onnly shows if both activity and building slots are met
+            if (_hasActivity && _hasBuildings) {
                 members[_member].removeAttribute("hidden");
             } else {
                 members[_member].setAttribute("hidden","hidden");
