@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters
 // @namespace    pardus.at
-// @version      0.3.1
+// @version      0.3.2
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -140,6 +140,7 @@
             [],
             []
         ]
+        let _alternating = true; // alternates background colours
 
         //finds  which filters are active
         for (var i in FILTER_OPTIONS) {
@@ -181,6 +182,13 @@
             //onnly shows if both activity and building slots are met
             if (_hasActivity && _hasBuildings) {
                 members[_member].removeAttribute("hidden");
+
+                _alternating = !_alternating;
+                if (_alternating) {
+                    members[_member].setAttribute("class","alternating");
+                } else {
+                    members[_member].removeAttribute("class");
+                }
             } else {
                 members[_member].setAttribute("hidden","hidden");
             }
