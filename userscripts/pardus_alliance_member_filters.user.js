@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters
 // @namespace    pardus.at
-// @version      0.4
+// @version      0.4.1
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -144,11 +144,12 @@
         ]
         let _alternating = true; // alternates background colours
 
+
         //finds  which filters are active
         for (var i in FILTER_OPTIONS) {
             for (var j in FILTER_OPTIONS[i][1]) {
                 if(document.getElementById(FILTER_OPTIONS[i][1][j][0]).checked){
-                    filters[i].push(parseInt(j)); //for some reason j is a string, so we change it to int
+                    filters[i].push(j);
                 }
             }
         }
@@ -157,7 +158,9 @@
         var _starbase = true;
 
         for (var _member in members) {
+
             //checks player activity if needed
+            _hasActivity = filters[0].length == 0;
             for (var i in filters[0]) {
                 if (!_hasActivity) {
                     if (members[_member].innerHTML.includes(FILTER_HTMLS[FILTER_OPTIONS[0][1][filters[0][i]][0]])) {
@@ -171,7 +174,7 @@
             for (var i in filters[1]) {
                 if (!_hasBuildings) {
                     //checks if it's looking for exact number of slots or equal or more
-                    if (filters[2].includes(0)) {
+                    if (filters[2].includes("0")) {
                         if (getBuildingSlots(members[_member]) - getUsedBuildingSlots(members[_member]) == filters[1][i]) {
                             _hasBuildings = true;
                         }
@@ -184,15 +187,14 @@
 
             //checks starbase filters
             _starbase = true;
-            if (filters[2].includes(1)) { // checks has starbase
+            if (filters[2].includes("1")) { // checks has starbase
                 _starbase = members[_member].children[4].innerHTML.indexOf("starbase") > -1;
             }
-            else if (filters[2].includes(2)) { // checks if doesn't have starbase
+            else if (filters[2].includes("2")) { // checks if doesn't have starbase
                 _starbase = !(members[_member].children[4].innerHTML.indexOf("starbase") > -1);
             }
 
             //only shows if both activity and building slots are met
-            _hasActivity = filters[0].length == 0;
             if (_hasActivity && _hasBuildings && _starbase) {
                 members[_member].removeAttribute("hidden");
                 _alternating = !_alternating; // changes the style
