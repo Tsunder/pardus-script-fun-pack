@@ -4,7 +4,7 @@
 // @namespace    jirina42@seznam.cz , astraltoremail@gmail.com
 // @author       jirina, Tsunders
 // @description  Adds some useful features to the standard IGM messaging in Pardus.
-// @version      1.5.2
+// @version      1.6
 // @include      *://*.pardus.at/messages_private.php*
 // @include      *://*.pardus.at/messages_alliance.php*
 // @include      *://*.pardus.at/sendmsg.php*
@@ -13,6 +13,7 @@
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js
 // @icon         http://www.pardus.at/favicon.ico
 
+// 1.6      2019 01 23  new feature: presets can be set to "append" onto messages instead of presending.
 // 1.5.2    2018 11 28  download migration
 // 1.5.1    2018 11 09  update for "span" colours.
 // 1.5      2018 10 31  add reply to all button, dependent on "pardus multi message"
