@@ -510,6 +510,13 @@ function usePMforCookie(){
     newRecipient.type = "text";
     newRecipient.id = "recipient";
 
+    append = document.createElement("input");
+    append.type = "checkbox";
+    append.id = "append"
+    appendLabel = document.createElement("label");
+    appendLabel.setAttribute("for","append");
+    appendLabel.innerText = "Append preset to end of message."
+
     newSubmit = document.createElement("input");
     newSubmit.type = "button";
     newSubmit.value = "Save preset";
@@ -517,8 +524,9 @@ function usePMforCookie(){
         newcookie = "";
         newcookie += document.getElementById("recipient").value+"|";
         newcookie += document.getElementsByName("textfield")[0].value+"|";
-        newcookie += document.getElementsByName("textarea")[0].value;
-        if(newcookie.split("|").length == 3){
+        newcookie += document.getElementsByName("textarea")[0].value+"|";
+        newcookie += document.getElementsByName("append").checked;
+        if(newcookie.split("|").length == 4){
             GM_setValue(universe+"_preset|"+label,newcookie);
         }else{
             alert("Error! Preset could not be saved!\n\nPlease do not use the '|' sign!");
@@ -535,13 +543,16 @@ function usePMforCookie(){
     deleteElement(document.getElementsByTagName("label")[0]);
     deleteElement(document.getElementsByTagName("input")[0]);
 
-    document.getElementById("Send").parentNode.appendChild(newSubmit);
+    document.getElementById("Send").parentElement.previousElementSibling.appendChild(append);
+    document.getElementById("Send").parentElement.previousElementSibling.appendChild(appendLabel);
+    document.getElementById("Send").parentElement.appendChild(newSubmit);
     deleteElement(document.getElementById("Send"));
 
 
     document.getElementById("recipient").value = infoCookie[0];
     document.getElementsByName("textfield")[0].value = infoCookie[1];
     document.getElementsByName("textarea")[0].value = infoCookie[2];
+    document.getElementById("append").checked = infoCookie[3]
 }
 
 function deleteElement(element){
@@ -789,8 +800,8 @@ function addPresetButtons(){
     allPresets = loadPresets();
     if(allPresets[0] == "") return;
     //callback function
-    function addPresetHandler(target,to,subj,msg){
-        target.addEventListener("click", function() {setPMToPreset(to,subj,msg);}, false);
+    function addPresetHandler(target,to,subj,msg,app){
+        target.addEventListener("click", function() {setPMToPreset(to,subj,msg,app);}, false);
     }
 
     presetButton = new Array();
@@ -800,15 +811,20 @@ function addPresetButtons(){
         presetButton[i] = document.createElement("input");
         presetButton[i].type = "button";
         presetButton[i].value = allPresets[i];
-        addPresetHandler(presetButton[i],infoCookie[0],infoCookie[1],infoCookie[2]);
+        addPresetHandler(presetButton[i],infoCookie[0],infoCookie[1],infoCookie[2],infoCookie[3]);
         document.getElementsByTagName("body")[0].appendChild(presetButton[i]);
         document.getElementsByTagName("body")[0].appendChild(document.createTextNode(" "));
     }
 }
-function setPMToPreset(to,subj,msg){
+function setPMToPreset(to,subj,msg,app){
     if(to != "") document.getElementById("recipient2").value = to;
     document.getElementsByName("textfield")[0].value = subj;
-    document.getElementById("textarea").value = msg+"\n"+document.getElementById("textarea").value;
+    if (app) {
+        document.getElementById("textarea").value += "\n" + msg;
+    }
+    else {
+        document.getElementById("textarea").value = msg+"\n"+document.getElementById("textarea").value;
+    }
 }
 function parseColorCode(messageTable,private){
     var msgCell = messageTable.getElementsByTagName("tr")[private?2:3].getElementsByTagName("td")[0];
