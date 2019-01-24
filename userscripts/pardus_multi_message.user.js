@@ -1,4 +1,5 @@
-// INTENDED TO BE USED WITH PARDUS MESSAGING
+// INTENDED TO BE USED WITH PARDUS MESSAGING, GET PARDUS MESSAGING AT https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js
+//
 // ==UserScript==
 // @name           Pardus Multi Message
 // @namespace      http://userscripts.xcom-alliance.info/
