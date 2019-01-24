@@ -1,4 +1,5 @@
-// INTENDED TO BE USED WITH PARDUS MULTI MESSAGE
+// INTENDED TO BE USED WITH PARDUS MULTI MESSAGE, GET PARDUS MULTI MESSAGE AT https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_multi_message.user.js
+//
 // ==UserScript==
 // @name         PardusMessaging
 // @namespace    jirina42@seznam.cz , astraltoremail@gmail.com
