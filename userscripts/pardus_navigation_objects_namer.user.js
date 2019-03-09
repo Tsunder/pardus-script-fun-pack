@@ -23,7 +23,7 @@ var npcData = {
 	"cyborg_manta": "Cyborg Manta",
 	"dreadscorp": "Dreadscorp",
 	"drosera": "Drosera",
-	"energybees": "Energy Bees",
+	"energybees": "Swarm of Energy Bees",
 	"energy_locust": "Energy Locust",
 	"energy_minnow": "Energy Minnow",
 	"energy_sparker": "Energy Sparker",
