@@ -6,6 +6,8 @@
 // @author       Tsunder
 // @match        *://*.pardus.at/main.php*
 // @grant        none
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js
 // ==/UserScript==
 
 var npcString = "NPC Opponent";
