@@ -10,13 +10,13 @@ For more scripts and downloads, see the [pardus downloads page](http://www.pardu
 ### [Alliance Member Filters ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
 Adds some filters for the members page in an alliance, such as Activity and Building Slots available. Requires Member Page access.
 
-### [Chat Links](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js)
+### [Chat Links ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js)
 When chat is open, periodically turns urls clickable.
 
 ### [Combat Log Map Links](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js)
 Turns the sectors into clickable links to zaqwer's mapper.
 
-### [Combat Screen Skills ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_screen_skills.user.js)
+### [Combat Screen Skills](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_screen_skills.user.js)
 Adds a button to check combat skills, includes a handy "trade in" button for skills that are high enough.
 
 ### [Custom Portrait](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_custom_portrait.user.js)
@@ -29,7 +29,7 @@ Enables faster dropping of low value goods.
 Enables fasater donating, right from the "drop cargo" screen!
 
 ### [Leech Overview](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_leech_overview.user.js)
-Shows estimated time until a leech repairs to full armor on ship overview screen
+Shows estimated time until a leech repairs to full armor on ship overview screen.
 
 ### [Messaging ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js)
 Adds some useful features to the standard IGM messaging in Pardus. Goes well with Multi-message.
