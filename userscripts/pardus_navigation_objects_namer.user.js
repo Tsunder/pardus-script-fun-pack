@@ -6,6 +6,8 @@
 // @author       Tsunder
 // @match        *://*.pardus.at/main.php*
 // @grant        none
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js
 // ==/UserScript==
 
 //in case of language setting. but then again, the file names are all english so.
