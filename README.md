@@ -7,8 +7,8 @@ For more scripts and downloads, see the [pardus downloads page](http://www.pardu
 
 ## Script Index
 
-### [Alliance Member Filters ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
-Adds some filters for the members page in an alliance, such as Activity and Building Slots available. Requires Member Page access.
+### [Alliance Member Filters](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
+Adds some filters for the members page in an alliance, such as Activity and Building Slots available. Requires being a Senior alliance member.
 
 ### [Chat Links ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js)
 When chat is open, periodically turns urls clickable.
