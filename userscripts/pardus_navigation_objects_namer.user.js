@@ -2,7 +2,7 @@
 // @name         Pardus Navigation Objects Namer
 // @namespace    http://tampermonkey.net/
 // @version      0.1
-// @description  Names NPCs and ships on the map.
+// @description  Names NPCs and ships on nav screen.
 // @author       Tsunder
 // @match        *://*.pardus.at/main.php*
 // @grant        none
