@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Navigation Objects Namer
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  Names NPCs and ships on nav screen.
 // @author       Tsunder
 // @match        *://*.pardus.at/main.php*
@@ -172,12 +172,14 @@ var PardusNavigationObjectsNamer = {
             e.title = e.title.replace(npcString, npcData[_name]) || e.title.replace(npcString, _name.replace(/_/g,' '))
         });
         Array.from(document.querySelectorAll('td.navShip img')).forEach(e => {
-            var _name = e.src.substring(e.src.lastIndexOf('/') + 1,e.src.lastIndexOf('.'))
+            var _name = e.src.substring(e.src.lastIndexOf('/') + 1, e.src.lastIndexOf('.'))
+            _name = _name.substring(0,_name.indexOf("_"))
             e.title = e.title.replace(pilotString, shipData[_name]) || e.title.replace(pilotString, _name.replace(/_/g,' '))
         })
         Array.from(document.querySelectorAll('#otherships_content td')).forEach(e => {
             var _style = e.getAttribute("style")
             var _name = _style.substring(_style.lastIndexOf('/') + 1,_style.lastIndexOf('.'))
+            _name = _name.substring(0,_name.indexOf("_"))
             e.title = e.title.replace(otherShipsString, shipData[_name]) || e.title.replace(otherShipsString, _name.replace(/_/g,' '))
         })
     }
