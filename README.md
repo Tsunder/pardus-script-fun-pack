@@ -5,6 +5,8 @@ To install, open the userscript and click on "raw", or click on them below. Reco
 
 For more scripts and downloads, see the [pardus downloads page](http://www.pardus.at/index.php?section=downloads), the [player tools and guides section of the pardus forums](http://forum.pardus.at/index.php?showforum=32), and the [Waistelands' userscript library](http://www.thewaistelands.info/category/userscript-library/)
 
+Some of these are made from scratch, others modifications of existing scripts. Almost all are from a desire to be lazy!
+
 ## Script Index
 
 ### [Alliance Member Filters](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
