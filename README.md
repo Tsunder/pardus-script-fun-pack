@@ -15,6 +15,9 @@ Adds some filters for the members page in an alliance, such as Activity and Buil
 ### [Chat Links ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js)
 When chat is open, periodically turns urls clickable.
 
+### [Cluster Statistics](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_cluster_statistics.user.js)
+Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page. Now with a reminder in the message bar. Based on Miche's version from Waistelands.
+
 ### [Combat Log Map Links](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js)
 Turns the sectors into clickable links to zaqwer's mapper.
 
@@ -34,10 +37,10 @@ Enables fasater donating, right from the "drop cargo" screen!
 Shows estimated time until a leech repairs to full armor on ship overview screen.
 
 ### [Messaging ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js)
-Adds some useful features to the standard IGM messaging in Pardus. Goes well with Multi-message.
+Adds some useful features to the standard IGM messaging in Pardus. Goes well with Multi-message. Based on work from Jirina.
 
 ### [Multi-message ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_multi_message.user.js)
-Enhances the Pardus message window to allow multiple recipients seperated by commas or newlines as well as configurable lists of pilot names that remain independent across universe. Based on work by Ivar (Artemis). Goes well with Messaging.
+Enhances the Pardus message window to allow multiple recipients seperated by commas or newlines as well as configurable lists of pilot names that remain independent across universe. Goes well with Messaging. Based on work by Ivar (Artemis), from the Waistelands. 
 
 ### [Navigation Objects Namer](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js)
 Names NPCs and ships on nav screen.
