@@ -126,7 +126,7 @@
         let checkStatsLink = document.createElement('a');
         // 43200000 = twelve hours
         // most is 4 increments (zero indexed of course)
-        let incrementsSinceCheck = Math.min(3, Math.floor((Date.now() - GM_getValue(universe + "lastCheck", 0))/43200000))
+        let incrementsSinceCheck = Math.min(3, Math.floor((Date.now() - GM_getValue(universe + "lastCheck", Date.now() - 43200000 - 43200000))/43200000))
         checkStatsLink.href = "statistics.php?display=parduscluster&autoclose";
         checkStatsLink.target = "_blank";
         checkStatsLink.innerText = ["Check PC SBs", "Check PC SB Pops", "Check Pardus Cluster Starbase Populations", "Low Population SBs? In YOUR cluster? It's more likely than you think! Get a free PC Health Check Today!"][incrementsSinceCheck];
