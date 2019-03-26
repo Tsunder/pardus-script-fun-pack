@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.1
+// @version      1.2
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page. Now with a reminder in the message bar.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        http*://*.pardus.at/statistics.php*
@@ -124,12 +124,12 @@
         let checkStatsLink = document.createElement('a');
         // 43200000 = twelve hours
         // most is 4 increments (zero indexed of course)
-        let incrementsSinceCheck = Math.min(3, Math.floor((Date.now() - GM_getValue(universe + "lastCheck"))/43200000))
+        let incrementsSinceCheck = Math.min(3, Math.floor((Date.now() - GM_getValue(universe + "lastCheck", 0))/43200000))
         checkStatsLink.href = "statistics.php?display=parduscluster&autoclose";
         checkStatsLink.target = "_blank";
         checkStatsLink.innerText = ["Check PC SBs", "Check PC SB Pops", "Check Pardus Cluster Starbase Populations", "Low Population SBs? In YOUR cluster? It's more likely than you think! Get a free PC Health Check Today!"][incrementsSinceCheck];
         checkStatsLink.style.color = [ populationIncreaseColor, populationUnchangedColor, populationDecreaseColor, lowPopColour][incrementsSinceCheck];
-        checkStatsLink.style.fontSize = ['','',"16px","24px"][incrementsSinceCheck];
+        checkStatsLink.style.fontSize = ['','',"14px","16px"][incrementsSinceCheck];
         let brEl = document.querySelector("a[href*='statistics']");
         brEl.innerHTML += " | ";
         brEl.after(checkStatsLink);
