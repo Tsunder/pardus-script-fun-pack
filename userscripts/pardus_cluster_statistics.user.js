@@ -14,16 +14,16 @@
 
 (function() {
     'use strict';
-    let populationUnchangedColor = '#FFFF00'; // yellow
-    let populationIncreaseColor = '#229922'; // green
-    let populationDecreaseColor = '#D21414'; // red
-    let universe = window.location.host.substr(0, window.location.host.indexOf('.'));
-
     let lowPopThreshold = 1001; // 1000 pop is about 12 ticks (1.5 days) before downgrade. 1500 about 16 ticks (2 days). 850 about 8 ticks (1 day)
+    
     let lowPopFontSize = "24px"; // 2x as large as regular
     let lowPopColour = '#FFA500'; // orange
     let healthy = true;
 
+    let populationUnchangedColor = '#FFFF00'; // yellow
+    let populationIncreaseColor = '#229922'; // green
+    let populationDecreaseColor = '#D21414'; // red
+    let universe = window.location.host.substr(0, window.location.host.indexOf('.'));
     if (document.location.pathname.includes("statistics.php")) {
 
         function parseContingent(tableEl) {
