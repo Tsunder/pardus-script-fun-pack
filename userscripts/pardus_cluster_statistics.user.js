@@ -15,7 +15,7 @@
 (function() {
     'use strict';
     // 1000 pop is about 12 ticks (1.5 days) before downgrade. 1500 about 16 ticks (2 days). 850 about 8 ticks (1 day)
-    let lowPopThreshold = 1001; 
+    let lowPopThreshold = 1001;
 
     //script stuff below, do not edit
     let lowPopFontSize = '24px'; // 2x as large as regular
@@ -26,6 +26,7 @@
     let populationIncreaseColor = '#229922'; // green
     let populationDecreaseColor = '#D21414'; // red
     let universe = window.location.host.substr(0, window.location.host.indexOf('.'));
+
     if (document.location.pathname.includes("statistics.php")) {
 
         function parseContingent(tableEl) {
@@ -91,9 +92,20 @@
             parseAllContginents();
         }
 
+        function toggleReminder() {
+            GM_setValue(universe + "ReminderEnabled", !(GM_getValue(universe + "ReminderEnabled", true)));
+        }
+
         let h1El = document.querySelector('h1');
         if (h1El.textContent === 'Statistics - Pardus Cluster') {
             GM_setValue(universe + "lastCheck", Date.now());
+            if (document.location.search.includes("autoclose")) {
+                parseAllContginents();
+                if (healthy) {
+                    window.close();
+                    return;
+                }
+            }
             // add in a reset values button
             let buttonEl = document.createElement('button');
             buttonEl.textContent = 'Reset Starbase Values';
@@ -112,17 +124,16 @@
                 h1El.parentNode.appendChild(lastResetText);
             } else {
                 buttonEl.style.marginBottom = '20px';
+                updateAllSavedValues();
             }
             // update the styling for all of the contingents
             parseAllContginents();
-            if (document.location.search.includes("autoclose")) {
-                if (healthy) {
-                    window.close();
-                }
-            }
         }
     }
     else if (document.location.pathname == "/msgframe.php") {
+        if (GM_getValue( universe + "ReminderEnabled", true) == false ) {
+            return;
+        }
         let checkStatsLink = document.createElement('a');
         // 43200000 = twelve hours
         // most is 4 increments (zero indexed of course)
