@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.2
-// @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page. Now with a reminder in the message bar.
+// @version      1.3
+// @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        http*://*.pardus.at/statistics.php*
 // @match        *.pardus.at/msgframe.php*
@@ -12,10 +12,28 @@
 // @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_cluster_statistics.user.js
 // ==/UserScript==
 
+//changes from base version:
+/*
+dynamic reminder in message bar!
+-- colour and text changes based on how long ago the SB has been visited
+-- can be disabled per universe
+
+automatic record updating
+-- automatically updates saved values to keep track of the most recent data on starbases
+-- rudimentary but hopefully generally sufficient
+
+minor text update
+-- added display of population difference
+-- added commas
+*/
+
 (function() {
     'use strict';
-    // 1000 pop is about 12 ticks (1.5 days) before downgrade. 1500 about 16 ticks (2 days). 850 about 8 ticks (1 day)
+    // 1000 pop is about 12 ticks (1.5 days) before downgrade. 1500 about 16 ticks (2 days). 850 about 8 ticks (1 day) default: 1001. options: any number
     let lowPopThreshold = 1001;
+
+    // automatically update population records when visiting page. default: true. options: true, false
+    let autoUpdate = true;
 
     //script stuff below, do not edit
     let lowPopFontSize = '24px'; // 2x as large as regular
@@ -50,9 +68,9 @@
                     color = populationIncreaseColor;
                 }
                 rowEl.style.color = color;
-                let title = '';
+                let title = 'No Change';
                 if (sbPopNew !== sbPopOld ) {
-                    title = 'Population was: ' + sbPopOld;
+                    title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+" + (sbPopNew - sbPopOld).toLocaleString():(sbPopNew - sbPopOld).toLocaleString()) + ")";
                 }
                 rowEl.title = title;
                 rowEl.style.cursor = 'default';
@@ -94,6 +112,45 @@
 
         function toggleReminder() {
             GM_setValue(universe + "ReminderEnabled", !(GM_getValue(universe + "ReminderEnabled", true)));
+            document.getElementById("reminderButton").innerHTML = updateReminderText();
+        }
+
+        function updateReminderText() {
+            let text = 'Message Bar Reminder: ';
+            if (GM_getValue(universe + 'ReminderEnabled', true)) {
+                text += "<font color='#5ADD5A'>ON</font>";
+            } else {
+                text += "<font color='#DD5555'>OFF</font>";
+            }
+            return text;
+        }
+
+        function autoUpdateSavedValuesForContingent(tableEl) {
+            for (let i=1; i<tableEl.rows.length; i++) {
+                let rowEl = tableEl.rows[i];
+                let sbName = rowEl.cells[2].textContent;
+                let sbPop = rowEl.cells[3].textContent.replace(/[,]/g, '');
+                GM_setValue(universe + sbName.replace(/\s+/g, ''), GM_getValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop));
+                GM_setValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop);
+            }
+        }
+
+        function autoUpdateSavedValues() {
+            let now = Date.now();
+            if (now - GM_getValue(universe + "lastAutoUpdate", 0) >= 10800000) {
+                let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
+                let tableElTables = tableEl.querySelectorAll('table');
+                autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
+                autoUpdateSavedValuesForContingent(tableElTables[1]); // PEC
+                autoUpdateSavedValuesForContingent(tableElTables[2]); // PUC
+                // update the last time we reset to the current cached time
+                let lastResetText = h1El.parentNode.querySelector('span.cached').textContent.replace(/Last updated\:/,'');
+                GM_setValue(universe + 'LastReset', lastResetText);
+                if (document.getElementById('lastResetText')) {
+                    document.getElementById('lastResetText').textContent = 'Compared with data from: ' + lastResetText + " (Autoupdated)";
+                }
+                GM_setValue(universe + "lastAutoUpdate", now);
+            }
         }
 
         let h1El = document.querySelector('h1');
@@ -106,6 +163,17 @@
                     return;
                 }
             }
+
+            // add in reminder toggle
+            let reminderButtonEl = document.createElement('button');
+            reminderButtonEl.id = "reminderButton";
+            reminderButtonEl.innerHTML = updateReminderText();
+            reminderButtonEl.style.margin = '10px 0';
+            reminderButtonEl.style.padding = '5px 10px';
+            h1El.parentNode.appendChild(reminderButtonEl);
+            reminderButtonEl.addEventListener('click', toggleReminder);
+            h1El.parentNode.appendChild(document.createElement('br'));
+
             // add in a reset values button
             let buttonEl = document.createElement('button');
             buttonEl.textContent = 'Reset Starbase Values';
@@ -125,6 +193,9 @@
             } else {
                 buttonEl.style.marginBottom = '20px';
                 updateAllSavedValues();
+            }
+            if (autoUpdate) {
+                autoUpdateSavedValues();
             }
             // update the styling for all of the contingents
             parseAllContginents();
