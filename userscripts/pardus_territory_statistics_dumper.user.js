@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Territory Statistics Dumper
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.3
+// @version      0.3.1
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
 // @author       Tsunder
 // @match        *.pardus.at/statistics.php*
@@ -58,6 +58,8 @@
                 history.sort();
             } else {
                 history = [];
+                GM_setValue(universe + "alliances", "{}");
+                GM_setValue(universe + "sectorList", "{}");
             }
             let today = postDay();
             if(history.includes(today)) {
@@ -75,51 +77,59 @@
             let key = postDay() + rows.splice(0,1)[0].innerText.split(' ')[0];
             let data = {};
             rows.forEach( (e) => {
-                data[e.children[0].textContent] = e.children[1].textContent;
+                data[e.getAttribute("onclick").match(/\d+/g)[0]] = e.children[1].textContent;
             })
             GM_setValue(universe + key, JSON.stringify(data))
         }
 
+        //not sure if this is more efficient than integrating with saveAllianceSummary()
         function saveAllianceList() {
             let rows = Array.from(document.querySelector("table.messagestyle").getElementsByTagName("tr"))
-            let alliances = GM_getValue(universe + "alliances", []);
+            let alliances = JSON.parse(GM_getValue(universe + "alliances"));
             rows.splice(0,1);
             rows.forEach( (row) => {
-                if (alliances.indexOf(row.children[0].textContent) == -1) {
-                    alliances.push(row.children[0].textContent);
+                let id = row.getAttribute("onclick").match(/\d+/g)[0];
+                if (!alliances[id]) {
+                    alliances[id] = row.children[0].textContent
                 }
             })
-            GM_setValue(universe + "alliances", alliances);
+            GM_setValue(universe + "alliances", JSON.stringify(alliances));
         }
 
         function saveMapData() {
-            console.log("saving map data");
             let mapTable = document.getElementById("tbl_territory");
             let dominatedSectors = Array.from(mapTable.querySelectorAll("td[class*='alliance']"));
             let data = {};
-            let sectorList = GM_getValue(universe + "sectorList",[]);
+            let sectorList = JSON.parse(GM_getValue(universe + "sectorList"));
             dominatedSectors.forEach((sector) => {
                 let name = sector.title.split(": ")[0];
-                let alliance = sector.title.split(": ")[1];
-                data[name] = alliance;
-                if(sectorList.indexOf(name) == -1) {
-                    sectorList.push(name)
+                let allianceID = sector.className.match(/\d+/g)[0];
+                let sectorID = sector.id.match(/\d+/g)[0];
+                data[sectorID] = allianceID;
+                if(!sectorList[sectorID]) {
+                    sectorList[sectorID] = name;
                 }
             });
             GM_setValue(universe + postDay() + "map", JSON.stringify(data));
-            GM_setValue(universe + "sectorList", sectorList);
+            GM_setValue(universe + "sectorList", JSON.stringify(sectorList));
         }
 
 
         //downloading requires parsing the history value to find out what days are saved
         //then, for every day, parse the day+save format.
         function downloadHistoryAll() {
+            downloadHistoryDiversity();
+            downloadHistoryTerritory();
+            downloadHistoryMap();
         }
 
         function downloadHistoryAllianceSummary(type) {
             let history = JSON.parse(GM_getValue(universe + "history",[]));
             let data = {};
-            GM_getValue(universe + "alliances",[]).forEach((alliance)=> {data[alliance] = []});
+            let alliances = JSON.parse(GM_getValue(universe + "alliances",[]));
+            for (var i in alliances) {
+                data[i] = [];
+            }
             let text = type + "," + history
             history.forEach((date) => {
                 let day = JSON.parse(GM_getValue(universe + date + type,{}))
@@ -128,7 +138,7 @@
                 }
             })
            for (var alliance in data) {
-               text += "\n" + alliance + "," + data[alliance];
+               text += "\n" + alliances[alliance] + "," + data[alliance];
            }
             download(type + " from " + history[0] + " to " + history[history.length-1], text);
         }
@@ -144,16 +154,20 @@
         function downloadHistoryMap() {
             let history = JSON.parse(GM_getValue(universe + "history",[]));
             let data = {};
-            GM_getValue(universe + "sectorList",[]).forEach((sector)=>{data[sector] = []});
+            let sectorList = JSON.parse(GM_getValue(universe + "sectorList",[]));
+            let alliances = JSON.parse(GM_getValue(universe + "alliances",[]));
+            for (var i in sectorList) {
+                data[i] = [];
+            }
             let text = "Sector Dominance," + history;
             history.forEach((date) => {
                 let day = JSON.parse(GM_getValue(universe + date + "map",{}));
                 for (var sector in data) {
-                    data[sector].push(day[sector] ? day[sector] : " ");
+                    data[sector].push(day[sector] ? alliances[day[sector]] : " ");
                 }
             })
            for (var sector in data) {
-               text += "\n" + sector + "," + data[sector];
+               text += "\n" + sectorList[sector] + "," + data[sector];
            }
             download("map from " + history[0] + " to " + history[history.length-1], text);
         }
@@ -206,19 +220,13 @@
 
         // OH MY GOD LOOK AT THE PAGE SOURCE HOLY FUCKKKKK
         function postMapData() {
-            //kind of useless
             let mapTable = document.getElementById("tbl_territory");
-            //lets take only the cells that have data
-            // no, only the cells that have someone with dominance.
             let dominatedSectors = Array.from(mapTable.querySelectorAll("td[class*='alliance']"));
             let text = "Sector,Alliance Name,Alliance ID\n"
             dominatedSectors.forEach((e) => {
                 e.mouseover()
-                //technically you can use tostring for the below.
-                //let [_sector, _alliance] = e.title.split(": ")
                 let _ID = e.className.match(/\d+/g)[0];
                 text += e.title.split(": ").toString() + "," + _ID + "\n";
-                //text += _sector + "," + _alliance + "," + _ID + "\n";
             })
 
             return text
