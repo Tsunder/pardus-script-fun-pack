@@ -54,7 +54,11 @@
         // OH MY GOD LOOK AT THE PAGE SOURCE HOLY FUCKKKKK
         // disabled or not because i honestly have no idea how to use this information
         //postMapData();
+        let info = document.createElement('span')
+        info.innerText = "Saving data in progress, incomplete ...";
+        h1El.after(info);
         saveTheDay();
+        info.innerText = "Saved Data for " + postDay() + "!\n";
         //also saves the fact that we have saved data for the day by getting the master history string, appending, and saving to it.
         function saveTheDay() {
             let history = GM_getValue(universe + "history",false);
@@ -71,8 +75,11 @@
             }
             (Array.from(document.querySelectorAll("table.messagestyle"))).forEach(saveAllianceSummary);
             saveAllianceList();
+            info.innerText += "...";
             saveMapData();
+            info.innerText += "...";
             history.push(today);
+            info.innerText += "...";
             GM_setValue(universe + "history",JSON.stringify(history));
         }
 
@@ -243,7 +250,7 @@
             link.click();
         }
         function postDay() {
-            let day = document.querySelectorAll("a[href*='statistics.php?date']")[0].nextElementSibling.value
+            let day = document.querySelector("a[href*='statistics.php?date']").href.split("=")[1];
             return day
         }
 
