@@ -55,10 +55,10 @@
         // disabled or not because i honestly have no idea how to use this information
         //postMapData();
         let info = document.createElement('span')
-        info.innerText = "Saving data in progress, incomplete ...";
+        info.innerText = "Saving data in progress:";
         h1El.after(info);
         saveTheDay();
-        info.innerText = "Saved Data for " + postDay() + "!\n";
+        info.innerText = " Saved All Data for " + postDay() + "!\n";
         //also saves the fact that we have saved data for the day by getting the master history string, appending, and saving to it.
         function saveTheDay() {
             let history = GM_getValue(universe + "history",false);
@@ -73,13 +73,14 @@
             if(history.includes(today)) {
                 return;
             }
-            (Array.from(document.querySelectorAll("table.messagestyle"))).forEach(saveAllianceSummary);
+            info.innerText += " Saving list of alliances...";
             saveAllianceList();
-            info.innerText += "...";
+            info.innerText += " Saving alliances summaries...";
+            (Array.from(document.querySelectorAll("table.messagestyle"))).forEach(saveAllianceSummary);
+            info.innerText += " Saving Map Data ...";
             saveMapData();
-            info.innerText += "...";
+            info.innerText += " Saving the day...";
             history.push(today);
-            info.innerText += "...";
             GM_setValue(universe + "history",JSON.stringify(history));
         }
 
