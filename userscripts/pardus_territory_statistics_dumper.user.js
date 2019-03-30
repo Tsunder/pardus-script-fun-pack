@@ -55,7 +55,6 @@
             let history = GM_getValue(universe + "history",false);
             if (history) {
                 history = JSON.parse(history)
-                history.sort();
             } else {
                 history = [];
                 GM_setValue(universe + "alliances", "{}");
@@ -69,6 +68,7 @@
             saveAllianceList();
             saveMapData();
             history.push(today);
+            history.sort();
             GM_setValue(universe + "history",JSON.stringify(history));
         }
 
