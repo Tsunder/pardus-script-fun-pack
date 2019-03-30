@@ -7,8 +7,8 @@
 // @match        *.pardus.at/statistics.php*
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
-// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js.user.js
 // ==/UserScript==
 
 (function() {
