@@ -13,10 +13,10 @@
 
 (function() {
     'use strict';
-    let universe = window.location.host.substr(0, window.location.host.indexOf('.'))
-    universe = universe.charAt(0).toUpperCase() + universe.slice(1);
     let h1El = document.querySelector('h1');
     if (h1El.textContent === 'Statistics - Alliance Territory') {
+        let universe = window.location.host.substr(0, window.location.host.indexOf('.'))
+        universe = universe.charAt(0).toUpperCase() + universe.slice(1);
         //add buttons for downloads.
         // territory, diversity, map, and all.
         h1El.after(makeDownloadButton("All", downloadHistoryAll));
@@ -28,7 +28,7 @@
         h1El.after(makeDownloadButton("Alliance Dominance", downloadHistoryTerritory));
         h1El.after(document.createElement('br'));
         h1El.after("Download Recorded History for...");
-        h1El.after(document.createElement('br'));
+        /*h1El.after(document.createElement('br'));
         h1El.after(makeDownloadButton("All", downloadAll));
         h1El.after(" ");
         h1El.after(makeDownloadButton("Domiance Map", downloadMap));
@@ -37,7 +37,7 @@
         h1El.after(" ");
         h1El.after(makeDownloadButton("Alliance Dominance", downloadTerritory));
         h1El.after(document.createElement('br'));
-        h1El.after("Download Today's Stats for...");
+        h1El.after("Download Today's Stats for...");*/
 
         // getting the day
         //postDay()
@@ -49,7 +49,6 @@
         // disabled or not because i honestly have no idea how to use this information
         //postMapData();
         saveTheDay();
-
         //also saves the fact that we have saved data for the day by getting the master history string, appending, and saving to it.
         function saveTheDay() {
             let history = GM_getValue(universe + "history",false);
@@ -97,6 +96,7 @@
         }
 
         function saveMapData() {
+            let sectorDiversity = unsafeWindow.sectorDiversity;
             let mapTable = document.getElementById("tbl_territory");
             let dominatedSectors = Array.from(mapTable.querySelectorAll("td[class*='alliance']"));
             let data = {};
@@ -105,7 +105,10 @@
                 let name = sector.title.split(": ")[0];
                 let allianceID = sector.className.match(/\d+/g)[0];
                 let sectorID = sector.id.match(/\d+/g)[0];
-                data[sectorID] = allianceID;
+                data[sectorID] = [allianceID];
+                if (sectorDiversity[sectorID]) {
+                    data[sectorID].push(sectorDiversity[sectorID]);
+                }
                 if(!sectorList[sectorID]) {
                     sectorList[sectorID] = name;
                 }
@@ -151,7 +154,10 @@
             downloadHistoryAllianceSummary("Territory");
         }
 
+        //not sure how to integrate class data elegantly.
+        //it would have to be multi cell I think, which would require reformatting the whole table.
         function downloadHistoryMap() {
+            let classData = unsafeWindow.classData;
             let history = JSON.parse(GM_getValue(universe + "history",[]));
             let data = {};
             let sectorList = JSON.parse(GM_getValue(universe + "sectorList",[]));
@@ -163,7 +169,7 @@
             history.forEach((date) => {
                 let day = JSON.parse(GM_getValue(universe + date + "map",{}));
                 for (var sector in data) {
-                    data[sector].push(day[sector] ? alliances[day[sector]] : " ");
+                    data[sector].push(day[sector] ? alliances[day[sector][0]] : "");
                 }
             })
            for (var sector in data) {
@@ -228,7 +234,6 @@
                 let _ID = e.className.match(/\d+/g)[0];
                 text += e.title.split(": ").toString() + "," + _ID + "\n";
             })
-
             return text
         }
     }
