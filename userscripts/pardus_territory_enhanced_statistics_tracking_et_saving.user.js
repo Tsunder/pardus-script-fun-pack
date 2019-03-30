@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Pardus Territory Statistics Dumper
+// @name         Pardus Territory Enhanced Statistics Tracking Et Saving
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
 // @version      0.4
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
@@ -7,8 +7,8 @@
 // @match        *.pardus.at/statistics.php*
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
-// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js
 // ==/UserScript==
 
 (function() {
