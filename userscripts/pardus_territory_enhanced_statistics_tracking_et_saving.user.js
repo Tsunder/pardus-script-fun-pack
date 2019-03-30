@@ -7,9 +7,13 @@
 // @match        *.pardus.at/statistics.php*
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_deleteValue
+// @grant        GM_listValues
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js
 // @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js
 // ==/UserScript==
+
+//todo : disabling recording per universe and clearing data
 
 (function() {
     'use strict';
@@ -203,7 +207,7 @@
            for (var sector in data) {
                text += "\n" + sectorList[sector] + "," + data[sector];
            }
-            download("map from " + history[0] + " to " + history[history.length-1], text);
+            download( ( type == 1 ? "Territory" : "Diversity" ) + " Map from " + history[0] + " to " + history[history.length-1], text);
         }
 
         function makeDownloadButton(text,callback) {
