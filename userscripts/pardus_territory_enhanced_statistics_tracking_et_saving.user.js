@@ -250,7 +250,7 @@
             link.click();
         }
         function postDay() {
-            let day = document.querySelector("a[href*='statistics.php?date']").href.split("=")[1];
+            let day = document.querySelector("select[onchange*='statistics.php?date']").value;
             return day
         }
 
