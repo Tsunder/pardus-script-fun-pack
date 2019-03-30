@@ -1,14 +1,14 @@
 // ==UserScript==
-// @name         Pardus Territory Enhanced Statistics Tracking Et Saving
+// @name         Pardus Territory Statistics Dumper
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.3.1
+// @version      0.4
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
 // @author       Tsunder
 // @match        *.pardus.at/statistics.php*
 // @grant        GM_setValue
 // @grant        GM_getValue
-// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js.user.js
-// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_statistics_dumper.user.js
 // ==/UserScript==
 
 (function() {
@@ -21,11 +21,13 @@
         // territory, diversity, map, and all.
         h1El.after(makeDownloadButton("All", downloadHistoryAll));
         h1El.after(" ");
-        h1El.after(makeDownloadButton("Domiance Map", downloadHistoryMap));
+        h1El.after(makeDownloadButton("Diversity Map", downloadHistoryDiversityMap));
         h1El.after(" ");
-        h1El.after(makeDownloadButton("Alliance Diversity", downloadHistoryDiversity));
+        h1El.after(makeDownloadButton("Territory Map", downloadHistoryTerritoryMap));
         h1El.after(" ");
-        h1El.after(makeDownloadButton("Alliance Dominance", downloadHistoryTerritory));
+        h1El.after(makeDownloadButton("Diversity Summary", downloadHistoryDiversity));
+        h1El.after(" ");
+        h1El.after(makeDownloadButton("Territory Summary", downloadHistoryTerritory));
         h1El.after(document.createElement('br'));
         h1El.after("Download Recorded History for...");
         /*h1El.after(document.createElement('br'));
@@ -67,7 +69,6 @@
             saveAllianceList();
             saveMapData();
             history.push(today);
-            history.sort();
             GM_setValue(universe + "history",JSON.stringify(history));
         }
 
@@ -96,7 +97,7 @@
         }
 
         function saveMapData() {
-            let sectorDiversity = unsafeWindow.sectorDiversity;
+            let sectorDiversity = unsafeWindow.sectorDiversity || window.sectorDiversity;
             let mapTable = document.getElementById("tbl_territory");
             let dominatedSectors = Array.from(mapTable.querySelectorAll("td[class*='alliance']"));
             let data = {};
@@ -106,13 +107,20 @@
                 let allianceID = sector.className.match(/\d+/g)[0];
                 let sectorID = sector.id.match(/\d+/g)[0];
                 data[sectorID] = [allianceID];
-                if (sectorDiversity[sectorID]) {
-                    data[sectorID].push(sectorDiversity[sectorID]);
-                }
                 if(!sectorList[sectorID]) {
                     sectorList[sectorID] = name;
                 }
             });
+            for (var sector in sectorDiversity) {
+                let diversity = []
+                sectorDiversity[sector].forEach((planet) => {
+                    diversity.push(planet[1] ? planet[1] : 0);
+                })
+                if (!data[sector]) {
+                    data[sector] = [0];
+                }
+                data[sector].push(diversity);
+            }
             GM_setValue(universe + postDay() + "map", JSON.stringify(data));
             GM_setValue(universe + "sectorList", JSON.stringify(sectorList));
         }
@@ -123,11 +131,13 @@
         function downloadHistoryAll() {
             downloadHistoryDiversity();
             downloadHistoryTerritory();
-            downloadHistoryMap();
+            downloadHistoryTerritoryMap();
+            downloadHistoryDiversityMap();
         }
 
         function downloadHistoryAllianceSummary(type) {
             let history = JSON.parse(GM_getValue(universe + "history",[]));
+            history.sort();
             let data = {};
             let alliances = JSON.parse(GM_getValue(universe + "alliances",[]));
             for (var i in alliances) {
@@ -154,11 +164,20 @@
             downloadHistoryAllianceSummary("Territory");
         }
 
+        function downloadHistoryDiversityMap () {
+            downloadHistoryMap(2);
+        }
+
+        function downloadHistoryTerritoryMap () {
+            downloadHistoryMap(1);
+        }
+
         //not sure how to integrate class data elegantly.
         //it would have to be multi cell I think, which would require reformatting the whole table.
-        function downloadHistoryMap() {
+        function downloadHistoryMap(type) {
             let classData = unsafeWindow.classData;
             let history = JSON.parse(GM_getValue(universe + "history",[]));
+            history.sort();
             let data = {};
             let sectorList = JSON.parse(GM_getValue(universe + "sectorList",[]));
             let alliances = JSON.parse(GM_getValue(universe + "alliances",[]));
@@ -169,7 +188,16 @@
             history.forEach((date) => {
                 let day = JSON.parse(GM_getValue(universe + date + "map",{}));
                 for (var sector in data) {
-                    data[sector].push(day[sector] ? alliances[day[sector][0]] : "");
+                    if (day[sector]) {
+                        if (type == 1) {
+                            data[sector].push(alliances[day[sector][0]]);
+                        } else {
+                            data[sector].push("\"" + (day[sector][1] ? day[sector][1] : "") +"\"");
+                        }
+                    }
+                    else {
+                        data[sector].push("");
+                    }
                 }
             })
            for (var sector in data) {
