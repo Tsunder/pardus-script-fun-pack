@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Pardus Territory Statistics Dumper
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.1
-// @description  Dumps the stats of the page into console.
+// @version      0.2
+// @description  Adds buttons to parse and download some stats from the Territory statistics page.
 // @author       Tsunder
 // @match        *.pardus.at/statistics.php*
 // @grant        none
@@ -12,21 +12,71 @@
 
 (function() {
     'use strict';
+    let universe = window.location.host.substr(0, window.location.host.indexOf('.'))
+    universe = universe.charAt(0).toUpperCase() + universe.slice(1);
     let h1El = document.querySelector('h1');
     if (h1El.textContent === 'Statistics - Alliance Territory') {
+        //add buttons for downloads.
+        // territory, diversity, map, and all.
+        h1El.after(makeDownloadButton("All", downloadAll));
+        h1El.after(" ");
+        h1El.after(makeDownloadButton("Domiance Map", downloadMap));
+        h1El.after(" ");
+        h1El.after(makeDownloadButton("Alliance Diversity", downloadDiversity));
+        h1El.after(" ");
+        h1El.after(makeDownloadButton("Alliance Dominance", downloadTerritory));
+        h1El.after(document.createElement('br'));
+        h1El.after("Download CSV for...");
+
         // getting the day
-        postDay();
+        //postDay();
         // getting the summarized stats for all alliances
-        (Array.from(document.querySelectorAll("table.messagestyle"))).forEach(postAllianceSummary);
+        //(Array.from(document.querySelectorAll("table.messagestyle"))).forEach(postAllianceSummary);
 
         // data for the exact map
         // OH MY GOD LOOK AT THE PAGE SOURCE HOLY FUCKKKKK
         // disabled or not because i honestly have no idea how to use this information
-        postMapData();
+        //postMapData();
+
+        function makeDownloadButton(text,callback) {
+        let button = document.createElement('button');
+            button.innerText = text;
+            button.style.margin = '10px 0';
+            button.style.padding = '5px 10px';
+            button.addEventListener('click',callback)
+            return button
+        }
+
+        function downloadTerritory () {
+            var link = document.createElement('a')
+            link.href = "data:text," + postAllianceSummary(document.querySelectorAll("table.messagestyle")[0]);
+            link.download = universe + " Territory " + postDay() + ".csv";
+            link.click();
+        }
+
+        function downloadDiversity () {
+            var link = document.createElement('a')
+            link.href = "data:text," + postAllianceSummary(document.querySelectorAll("table.messagestyle")[1]);
+            link.download = universe + " Diversity" + postDay() + ".csv";
+            link.click();
+        }
+
+        function downloadMap () {
+            var link = document.createElement('a')
+            link.href = "data:text," + postMapData;
+            link.download = universe + " Dominance Map " + postDay() + ".csv";
+            link.click();
+        }
+
+        function downloadAll() {
+            downloadTerritory();
+            downloadDiversity();
+            downloadMap();
+        }
 
         function postDay() {
             let day = document.querySelectorAll("a[href*='statistics.php?date']")[0].nextElementSibling.value
-            console.log(day)
+            return day
         }
 
         function postAllianceSummary(table) {
@@ -35,7 +85,7 @@
             rows.forEach( (e) => {
                 text += e.getAttribute("onclick").match(/\d+/g)[0] + "," + e.children[0].innerText + "," + e.children[1].innerText + "\n";
             })
-            console.log(text)
+            return text
         }
 
         // OH MY GOD LOOK AT THE PAGE SOURCE HOLY FUCKKKKK
@@ -54,7 +104,7 @@
                 //text += _sector + "," + _alliance + "," + _ID + "\n";
             })
 
-            console.log(text)
+            return text
         }
     }
 })();
