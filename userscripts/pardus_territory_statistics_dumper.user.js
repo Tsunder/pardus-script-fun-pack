@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Pardus Territory Statistics Dumper
+// @name         Pardus Territory Enhanced Statistics Tracking Et Saving
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
 // @version      0.3.1
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
