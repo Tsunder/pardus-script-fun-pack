@@ -63,7 +63,7 @@
 
         function downloadMap () {
             var link = document.createElement('a')
-            link.href = "data:text," + postMapData;
+            link.href = "data:text," + postMapData();
             link.download = universe + " Dominance Map " + postDay() + ".csv";
             link.click();
         }
