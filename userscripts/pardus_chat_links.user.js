@@ -33,8 +33,7 @@ function chatLinks() {
             thisline = chatlines.snapshotItem(i);
             if(thisline.innerHTML.search('acs_log') == -1)
             {
-                var replacementString = thisline.innerHTML.replace(/\s(http|https|ftp|www)(:\/\/|\.)([^<\s]+)/gi,
-                                                                   ' <a href="$1$2$3" target="_blank">$1$2$3<\/a> ');
+                var replacementString = thisline.innerHTML.replace(/\s(http|https|ftp|www)(:\/\/|\.)([^<\s]+)/gi, ' <a href="$1$2$3" target="_blank">$1$2$3<\/a> ');
                 if (thisline.innerHTML.localeCompare(replacementString) != 0)
                 {
                     thisline.innerHTML = replacementString;
