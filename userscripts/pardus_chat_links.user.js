@@ -2,7 +2,7 @@
 // @name           Pardus chat links
 // @namespace      pardus.at
 // @author         Lucky, (C) 2009-2013, tsunders 2019
-// @version        0.3
+// @version        1.0
 // @description    Pardus chat links
 // @downloadurl    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js
 // @updateurl      https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js
