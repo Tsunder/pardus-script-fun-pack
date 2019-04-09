@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Territory Enhanced Statistics Tracking Et Saving
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.4.2
+// @version      0.4.1
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
 // @author       Tsunder
 // @match        *.pardus.at/statistics.php*
