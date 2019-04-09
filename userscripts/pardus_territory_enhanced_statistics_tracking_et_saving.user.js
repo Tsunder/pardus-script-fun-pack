@@ -249,7 +249,7 @@
             var blob = new Blob([data],{type:"text/csv"});
             link.href = URL.createObjectURL(blob);
             link.download = universe + " " + string + ".csv";
-            h1El.after(link);
+            document.body.after(link);
             link.click();
         }
         function postDay() {
