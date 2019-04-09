@@ -5,7 +5,7 @@
 // @namespace    jirina42@seznam.cz , astraltoremail@gmail.com
 // @author       jirina, Tsunders
 // @description  Adds some useful features to the standard IGM messaging in Pardus.
-// @version      1.6
+// @version      1.6.1
 // @include      *://*.pardus.at/messages_private.php*
 // @include      *://*.pardus.at/messages_alliance.php*
 // @include      *://*.pardus.at/sendmsg.php*
@@ -14,6 +14,7 @@
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js
 // @icon         http://www.pardus.at/favicon.ico
 
+// 1.6.1    2019 04 09  minor fix for styling
 // 1.6      2019 01 23  new feature: presets can be set to "append" onto messages instead of presending.
 // 1.5.2    2018 11 28  download migration
 // 1.5.1    2018 11 09  update for "span" colours.
@@ -103,19 +104,19 @@ function mysendmsg() {
             continue
         }else if(element.nodeName == "FONT"){
             if(element.getAttribute("color") != "null"){
-            txt = txt + "<font color=\""+element.getAttribute("color")+"\" size=\""+element.getAttribute("size")+"\">"+element.childNodes[0].nodeValue+"</font>";
+            txt = txt + "[font color=\""+element.getAttribute("color")+"\" size=\""+element.getAttribute("size")+"\"]"+element.childNodes[0].nodeValue+"[/font]";
             }else{
-            txt = txt + "<font size=\""+element.getAttribute("size")+"\">"+element.childNodes[0].nodeValue+"</font>";
+            txt = txt + "[font size=\""+element.getAttribute("size")+"\"]"+element.childNodes[0].nodeValue+"[/font]";
             }
             continue;
         }else if(element.nodeName == "B"){
-            txt = txt + "<b>"+element.childNodes[0].nodeValue+"</b>";
+            txt = txt + "[b]"+element.childNodes[0].nodeValue+"[/b]";
             continue;
         }else if(element.nodeName == "U"){
-            txt = txt + "<u>"+element.childNodes[0].nodeValue+"</u>";
+            txt = txt + "[u]"+element.childNodes[0].nodeValue+"[/u]";
             continue;
         }else if(element.nodeName == "I"){
-            txt = txt + "<i>"+element.childNodes[0].nodeValue+"</i>";
+            txt = txt + "[i]"+element.childNodes[0].nodeValue+"[/i]";
             continue;
         }else if(element.nodeName == "A"){
             txt = txt + "[url="+element.getAttribute("href")+"]"+element.childNodes[0].nodeValue+"[/url]";
