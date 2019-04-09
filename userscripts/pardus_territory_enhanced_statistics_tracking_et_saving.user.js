@@ -246,7 +246,8 @@
         }
         function download(string, data) {
             var link = document.createElement('a')
-            link.href = "data:text," + data;
+            var blob = new Blob([data],{type:"text/csv"});
+            link.href = URL.createObjectURL(blob);
             link.download = universe + " " + string + ".csv";
             h1El.after(link);
             link.click();
