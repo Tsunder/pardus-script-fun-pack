@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Revnue Service
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.1
+// @version      0.2
 // @description  Displays building profit per tick.
 // @author       Tsunders
 // @match        *.pardus.at/building_trade.php*
@@ -12,6 +12,9 @@
 
 (function() {
     'use strict';
+    if (document.querySelector("img[src*='trade_outpost.png']")) {
+        return
+    }
     let net = 0;
     let baseTable = document.querySelectorAll("tr[id*='baserow']")
     let shipTable = document.querySelectorAll("tr[id*='shiprow']")
