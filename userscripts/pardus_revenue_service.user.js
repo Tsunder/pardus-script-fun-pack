@@ -20,6 +20,14 @@
     }
     let creditflowEl = document.createElement("tr");
     creditflowEl.style = "background-color:#003040";
-    creditflowEl.innerHTML = "<td colspan='4'>Profit per tick</td><td colspan='4' align='right'>" + net.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+    creditflowEl.innerHTML = "<td colspan='4'>Profit per Tick</td><td colspan='4' align='right'>" + net.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
     baseTable.parentElement.append(creditflowEl);
+    let creditflowDayEl = document.createElement("tr");
+    creditflowDayEl.style = "background-color:#003040";
+    creditflowDayEl.innerHTML = "<td colspan='4'>Profit per Day</td><td colspan='4' align='right'>" + (net*4).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+    baseTable.parentElement.append(creditflowDayEl);
+    let creditflowWeekEl = document.createElement("tr");
+    creditflowWeekEl.style = "background-color:#003040";
+    creditflowWeekEl.innerHTML = "<td colspan='4'>Profit per Week</td><td colspan='4' align='right'>" + (net*28).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+    baseTable.parentElement.append(creditflowWeekEl);
 })();
