@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Revnue Service
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.2
+// @version      0.3
 // @description  Displays building profit per tick.
 // @author       Tsunders
 // @match        *.pardus.at/building_trade.php*
@@ -13,13 +13,19 @@
 (function() {
     'use strict';
     if (document.querySelector("img[src*='trade_outpost.png']")) {
-        return
+        return;
     }
     let net = 0;
     let baseTable = document.querySelectorAll("tr[id*='baserow']")
     let shipTable = document.querySelectorAll("tr[id*='shiprow']")
     for (var row = 0; row < baseTable.length; row++) {
-        net += (baseTable[row].children[3].innerText.replace(/,/g,'') < 0 ) ? shipTable[row].children[3].innerText.replace(/,/g,'') * baseTable[row].children[3].innerText.replace(/,/g,'') : baseTable[row].children[3].innerText.replace(/,/g,'') * baseTable[row].children[6].innerText.replace(/,/g,'')
+        if (baseTable[row].children[3].innerText.replace(/,/g,'') < 0 ) {
+            net += shipTable[row].children[3].innerText.replace(/,/g,'') * baseTable[row].children[3].innerText.replace(/,/g,'')
+        }
+        else if (baseTable[row].children[3].innerText.replace(/,/g,'') > 0 ) {
+            net += baseTable[row].children[3].innerText.replace(/,/g,'') * baseTable[row].children[6].innerText.replace(/,/g,'')
+        }
+        //if there balance usage is 0 or not a number, like in the case of jewels for refined stims, the net is not accounted for.
     }
     let creditflowEl = document.createElement("tr");
     creditflowEl.style = "background-color:#003040";
