@@ -2,7 +2,7 @@
 //
 // ==UserScript==
 // @name         PardusMessaging
-// @namespace    jirina42@seznam.cz , astraltoremail@gmail.com
+// @namespace    jirina42@seznam.cz , https://github.com/Tsunder/pardus-script-fun-pack
 // @author       jirina, Tsunders
 // @description  Adds some useful features to the standard IGM messaging in Pardus.
 // @version      1.6.1
