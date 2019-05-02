@@ -4,7 +4,7 @@
 // @version      1.3.4
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
-// @match        http*://*.pardus.at/statistics.php*
+// @match        http*://*.pardus.at/statistics.php?display=parduscluster*
 // @match        *.pardus.at/msgframe.php*
 // @grant        GM_getValue
 // @grant        GM_setValue
