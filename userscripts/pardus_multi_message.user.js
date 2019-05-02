@@ -2,9 +2,9 @@
 //
 // ==UserScript==
 // @name           Pardus Multi Message
-// @namespace      http://userscripts.xcom-alliance.info/
+// @namespace      http://userscripts.xcom-alliance.info/ , https://github.com/Tsunder/pardus-script-fun-pack
 // @version        3.5
-// @author         Miche (Orion) / Sparkle (Artemis), Pincedragon (Orion)
+// @author         Miche (Orion) / Sparkle (Artemis), Tsunders
 // @description    Enhances the Pardus message window to allow multiple recipients seperated by commas or newlines as well as configurable lists of pilot names that remain independent across universe. Based on work by Ivar (Artemis).
 // @include        http*://*.pardus.at/sendmsg.php*
 // @include        http*://*.pardus.at/msgframe.php
