@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.4
+// @version      1.3.5
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
-// @match        http*://*.pardus.at/statistics.php?display=parduscluster*
+// @match        *.pardus.at/statistics.php*
 // @match        *.pardus.at/msgframe.php*
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -46,115 +46,113 @@ minor text update
     let universe = window.location.host.substr(0, window.location.host.indexOf('.'));
 
     if (document.location.pathname.includes("statistics.php")) {
-
-        function parseContingent(tableEl) {
-            for (let i=1; i<tableEl.rows.length; i++) {
-                let rowEl = tableEl.rows[i];
-                let sbName = rowEl.cells[2].textContent;
-                let sbPopNew = rowEl.cells[3].textContent.replace(/[,]/g, '');
-                let sbPopOld = GM_getValue(universe + sbName.replace(/\s+/g, ''), sbPopNew);
-                // cast the population strings into numbers
-                sbPopNew = sbPopNew - 0;
-                sbPopOld = sbPopOld - 0;
-                let color = populationUnchangedColor;
-                if (sbPopNew < sbPopOld) {
-                    color = populationDecreaseColor;
-                    if (sbPopNew < lowPopThreshold) {
-                        rowEl.style.fontSize = lowPopFontSize;
-                        color = lowPopColour;
-                        healthy = false;
+        let h1El = document.querySelector('h1');
+        if (h1El.textContent === 'Statistics - Pardus Cluster') {
+            function parseContingent(tableEl) {
+                for (let i=1; i<tableEl.rows.length; i++) {
+                    let rowEl = tableEl.rows[i];
+                    let sbName = rowEl.cells[2].textContent;
+                    let sbPopNew = rowEl.cells[3].textContent.replace(/[,]/g, '');
+                    let sbPopOld = GM_getValue(universe + sbName.replace(/\s+/g, ''), sbPopNew);
+                    // cast the population strings into numbers
+                    sbPopNew = sbPopNew - 0;
+                    sbPopOld = sbPopOld - 0;
+                    let color = populationUnchangedColor;
+                    if (sbPopNew < sbPopOld) {
+                        color = populationDecreaseColor;
+                        if (sbPopNew < lowPopThreshold) {
+                            rowEl.style.fontSize = lowPopFontSize;
+                            color = lowPopColour;
+                            healthy = false;
+                        }
+                    } else if (sbPopNew > sbPopOld) {
+                        color = populationIncreaseColor;
                     }
-                } else if (sbPopNew > sbPopOld) {
-                    color = populationIncreaseColor;
+                    rowEl.style.color = color;
+                    let title = 'No Change';
+                    if (sbPopNew !== sbPopOld ) {
+                        title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+" + (sbPopNew - sbPopOld).toLocaleString():(sbPopNew - sbPopOld).toLocaleString()) + ")";
+                    }
+                    rowEl.title = title;
+                    rowEl.style.cursor = 'default';
                 }
-                rowEl.style.color = color;
-                let title = 'No Change';
-                if (sbPopNew !== sbPopOld ) {
-                    title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+" + (sbPopNew - sbPopOld).toLocaleString():(sbPopNew - sbPopOld).toLocaleString()) + ")";
-                }
-                rowEl.title = title;
-                rowEl.style.cursor = 'default';
             }
-        }
 
-        function parseAllContginents() {
-            let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
-            let tableElTables = tableEl.querySelectorAll('table');
-            parseContingent(tableElTables[0]); // PFC
-            parseContingent(tableElTables[1]); // PEC
-            parseContingent(tableElTables[2]); // PUC
-        }
-
-        function updateSavedValuesForContingent(tableEl) {
-            for (let i=1; i<tableEl.rows.length; i++) {
-                let rowEl = tableEl.rows[i];
-                let sbName = rowEl.cells[2].textContent;
-                let sbPop = rowEl.cells[3].textContent.replace(/[,]/g, '');
-                GM_setValue(universe + sbName.replace(/\s+/g, ''), sbPop);
-            }
-        }
-
-        function updateAllSavedValues() {
-            let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
-            let tableElTables = tableEl.querySelectorAll('table');
-            updateSavedValuesForContingent(tableElTables[0]); // PFC
-            updateSavedValuesForContingent(tableElTables[1]); // PEC
-            updateSavedValuesForContingent(tableElTables[2]); // PUC
-            // update the last time we reset to the current cached time
-            let lastResetText = h1El.parentNode.querySelector('span.cached').textContent.replace(/Last updated\:/,'');
-            GM_setValue(universe + 'LastReset', lastResetText);
-            if (document.getElementById('lastResetText')) {
-                document.getElementById('lastResetText').textContent = 'Compared with data from: ' + lastResetText;
-            }
-            // update the styling for all of the contingents
-            parseAllContginents();
-        }
-
-        function toggleReminder() {
-            GM_setValue(universe + "ReminderEnabled", !(GM_getValue(universe + "ReminderEnabled", true)));
-            document.getElementById("reminderButton").innerHTML = updateReminderText();
-        }
-
-        function updateReminderText() {
-            let text = 'Message Bar Reminder: ';
-            if (GM_getValue(universe + 'ReminderEnabled', true)) {
-                text += "<font color='#5ADD5A'>ON</font>";
-            } else {
-                text += "<font color='#DD5555'>OFF</font>";
-            }
-            return text;
-        }
-
-        function autoUpdateSavedValuesForContingent(tableEl) {
-            for (let i=1; i<tableEl.rows.length; i++) {
-                let rowEl = tableEl.rows[i];
-                let sbName = rowEl.cells[2].textContent;
-                let sbPop = rowEl.cells[3].textContent.replace(/[,]/g, '');
-                GM_setValue(universe + sbName.replace(/\s+/g, ''), GM_getValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop));
-                GM_setValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop);
-            }
-        }
-
-        function autoUpdateSavedValues() {
-            let now = Date.now();
-            if (now - GM_getValue(universe + "lastAutoUpdate", 0) >= 10800000) {
+            function parseAllContginents() {
                 let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                 let tableElTables = tableEl.querySelectorAll('table');
-                autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
-                autoUpdateSavedValuesForContingent(tableElTables[1]); // PEC
-                autoUpdateSavedValuesForContingent(tableElTables[2]); // PUC
+                parseContingent(tableElTables[0]); // PFC
+                parseContingent(tableElTables[1]); // PEC
+                parseContingent(tableElTables[2]); // PUC
+            }
+
+            function updateSavedValuesForContingent(tableEl) {
+                for (let i=1; i<tableEl.rows.length; i++) {
+                    let rowEl = tableEl.rows[i];
+                    let sbName = rowEl.cells[2].textContent;
+                    let sbPop = rowEl.cells[3].textContent.replace(/[,]/g, '');
+                    GM_setValue(universe + sbName.replace(/\s+/g, ''), sbPop);
+                }
+            }
+
+            function updateAllSavedValues() {
+                let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
+                let tableElTables = tableEl.querySelectorAll('table');
+                updateSavedValuesForContingent(tableElTables[0]); // PFC
+                updateSavedValuesForContingent(tableElTables[1]); // PEC
+                updateSavedValuesForContingent(tableElTables[2]); // PUC
                 // update the last time we reset to the current cached time
-                let lastResetText = new Date(GM_getValue(universe + "lastAutoUpdate", now)).toUTCString() + " (Autoupdated)";
+                let lastResetText = h1El.parentNode.querySelector('span.cached').textContent.replace(/Last updated\:/,'');
                 GM_setValue(universe + 'LastReset', lastResetText);
                 if (document.getElementById('lastResetText')) {
                     document.getElementById('lastResetText').textContent = 'Compared with data from: ' + lastResetText;
                 }
-                GM_setValue(universe + "lastAutoUpdate", now);
+                // update the styling for all of the contingents
+                parseAllContginents();
             }
-        }
 
-        let h1El = document.querySelector('h1');
-        if (h1El.textContent === 'Statistics - Pardus Cluster') {
+            function toggleReminder() {
+                GM_setValue(universe + "ReminderEnabled", !(GM_getValue(universe + "ReminderEnabled", true)));
+                document.getElementById("reminderButton").innerHTML = updateReminderText();
+            }
+
+            function updateReminderText() {
+                let text = 'Message Bar Reminder: ';
+                if (GM_getValue(universe + 'ReminderEnabled', true)) {
+                    text += "<font color='#5ADD5A'>ON</font>";
+                } else {
+                    text += "<font color='#DD5555'>OFF</font>";
+                }
+                return text;
+            }
+
+            function autoUpdateSavedValuesForContingent(tableEl) {
+                for (let i=1; i<tableEl.rows.length; i++) {
+                    let rowEl = tableEl.rows[i];
+                    let sbName = rowEl.cells[2].textContent;
+                    let sbPop = rowEl.cells[3].textContent.replace(/[,]/g, '');
+                    GM_setValue(universe + sbName.replace(/\s+/g, ''), GM_getValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop));
+                    GM_setValue(universe + "auto_" + sbName.replace(/\s+/g, ''), sbPop);
+                }
+            }
+
+            function autoUpdateSavedValues() {
+                let now = Date.now();
+                if (now - GM_getValue(universe + "lastAutoUpdate", 0) >= 10800000) {
+                    let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
+                    let tableElTables = tableEl.querySelectorAll('table');
+                    autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
+                    autoUpdateSavedValuesForContingent(tableElTables[1]); // PEC
+                    autoUpdateSavedValuesForContingent(tableElTables[2]); // PUC
+                    // update the last time we reset to the current cached time
+                    let lastResetText = new Date(GM_getValue(universe + "lastAutoUpdate", now)).toUTCString() + " (Autoupdated)";
+                    GM_setValue(universe + 'LastReset', lastResetText);
+                    if (document.getElementById('lastResetText')) {
+                        document.getElementById('lastResetText').textContent = 'Compared with data from: ' + lastResetText;
+                    }
+                    GM_setValue(universe + "lastAutoUpdate", now);
+                }
+            }
             GM_setValue(universe + "lastCheck", Date.now());
 
             // add in reminder toggle
