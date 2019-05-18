@@ -30,6 +30,9 @@ Allows setting custom images for a pilot. Supports one unique pilot per universe
 ### [Drop Trash ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_drop_trash.user.js)
 Enables faster dropping of low value goods.
 
+### [Easy Relog](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_easy_relog.user.js)
+Makes it slightly easier to get into your universe, maybe?
+
 ### [Holiday Drop](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_holiday_drop.user.js)
 Enables fasater donating, right from the "drop cargo" screen!
 
@@ -47,6 +50,9 @@ Names NPCs and ships on nav screen.
 
 ### [Relations Randomizer](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_relations_randomizer.user.js)
 randomizes the relations gains/losses. Why would you want this? I don't know. WIP
+
+### [Revenue Service](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_revenue_service.user.js)
+Displays profit when trading with other buildings.
 
 ### [Shadow Hibeams](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_shadow_highbeams.user.js)
 Shines a light on shadows so you don't miss them.
