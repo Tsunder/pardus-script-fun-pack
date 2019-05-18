@@ -2,7 +2,7 @@
 // @name         Pardus Revnue Service
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
 // @version      0.3
-// @description  Displays building profit per tick.
+// @description  Displays profit when trading with other buildings.
 // @author       Tsunders
 // @match        *.pardus.at/building_trade.php*
 // @grant        none
