@@ -5,7 +5,7 @@
 // @namespace    jirina42@seznam.cz , https://github.com/Tsunder/pardus-script-fun-pack
 // @author       jirina, Tsunders
 // @description  Adds some useful features to the standard IGM messaging in Pardus.
-// @version      1.6.1
+// @version      1.6.2
 // @include      *://*.pardus.at/messages_private.php*
 // @include      *://*.pardus.at/messages_alliance.php*
 // @include      *://*.pardus.at/sendmsg.php*
@@ -14,6 +14,7 @@
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js
 // @icon         http://www.pardus.at/favicon.ico
 
+// 1.6.2    2019 06 01  color tag fixing
 // 1.6.1    2019 04 09  minor fix for styling
 // 1.6      2019 01 23  new feature: presets can be set to "append" onto messages instead of presending.
 // 1.5.2    2018 11 28  download migration
@@ -100,7 +101,7 @@ function mysendmsg() {
         }else if(element.nodeName == "HR"){
             break;
         }else if (element.nodeName == "SPAN"){ //catches the color aspect
-            txt += "[color=" + element.getAttribute("style").split(":")[1] + "]" + element.childNodes[0].nodeValue + "[/url]";
+            txt += "[color=" + element.getAttribute("style").split("#")[1] + "]" + element.childNodes[0].nodeValue + "[/color]";
             continue
         }else if(element.nodeName == "FONT"){
             if(element.getAttribute("color") != "null"){
