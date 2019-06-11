@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.5
+// @version      1.3.6
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
@@ -71,7 +71,7 @@ minor text update
                     rowEl.style.color = color;
                     let title = 'No Change';
                     if (sbPopNew !== sbPopOld ) {
-                        title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+" + (sbPopNew - sbPopOld).toLocaleString():(sbPopNew - sbPopOld).toLocaleString()) + ")";
+                        title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+":"") + (sbPopNew - sbPopOld).toLocaleString() + ") (" + (sbPopNew > sbPopOld ? "+":"") + ((1 - (sbPopOld/sbPopNew))*100).toFixed(1) + "%)" ;
                     }
                     rowEl.title = title;
                     rowEl.style.cursor = 'default';
@@ -225,7 +225,8 @@ minor text update
         let incrementsSinceCheck = Math.min(3, Math.floor((Date.now() - GM_getValue(universe + "lastCheck", Date.now() - 43200000 - 43200000))/43200000))
         checkStatsLink.href = "statistics.php?display=parduscluster&autoclose";
         checkStatsLink.target = "_blank";
-        checkStatsLink.innerText = ["Check PC SBs", "Check PC SB Pops", "Check Pardus Cluster Starbase Populations", "Low Population SBs? In YOUR cluster? It's more likely than you think! Get a free PC Health Check Today!"][incrementsSinceCheck];
+        //using unicode symbol, I too live dangerously B)
+        checkStatsLink.innerText = ["PC Health ✔", "Check PC SBs", "Check Pardus Cluster Starbase Populations", "Low Population SBs? In YOUR cluster? It's more likely than you think! Get a free PC Health Check Today!"][incrementsSinceCheck];
         checkStatsLink.style.color = [ populationIncreaseColor, populationUnchangedColor, populationDecreaseColor, lowPopColour][incrementsSinceCheck];
         checkStatsLink.style.fontSize = ['','',"14px","16px"][incrementsSinceCheck];
         let brEl = document.querySelector("a[href*='statistics']");
