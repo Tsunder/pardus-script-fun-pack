@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.9
+// @version      1.3.10
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
@@ -162,10 +162,10 @@ minor text update
 
                 let lastTickOfLastDay = new Date().setUTCHours(0,25,0,0);
                 lastTickOfLastDay -= 10800000; // minus three hours of time.
-                function ticksPast(now) {
+                function ticksSince(now) {
                     return Math.floor((now - lastTickOfLastDay)/10800000)
                 }
-                if (ticksPast(mostRecent.valueOf()) > ticksPast(GM_getValue(universe + "lastAutoUpdate", 0))) {
+                if (ticksSince(mostRecent.valueOf()) > ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) {
                     let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                     let tableElTables = tableEl.querySelectorAll('table');
                     autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
@@ -175,7 +175,7 @@ minor text update
                     let lastResetText = new Date(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf())).toUTCString() + " (Autoupdated)";
                     GM_setValue(universe + 'LastReset', lastResetText);
                     if (document.getElementById('lastResetText')) {
-                        document.getElementById('lastResetText').textContent = 'Compared with data from: ' + lastResetText;
+                        document.getElementById('lastResetText').textContent = 'Compared with data from ' + (ticksSince(mostRecent.valueOf()) - ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) + ' tick(s) ago: ' + lastResetText;
                     }
                     GM_setValue(universe + "lastAutoUpdate", mostRecent.valueOf());
                 }
