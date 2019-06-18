@@ -173,7 +173,7 @@ minor text update
                     autoUpdateSavedValuesForContingent(tableElTables[1]); // PEC
                     autoUpdateSavedValuesForContingent(tableElTables[2]); // PUC
                     // update the last time we reset to the current cached time
-                    let lastResetText = (ticksSince(mostRecent.valueOf()) - ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) + ' tick(s) ago<br> ' + new Date(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf())).toUTCString() + " (Autoupdated)";
+                    let lastResetText = (ticksSince(mostRecent.valueOf()) - ticksSince(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf()))) + ' tick(s) ago<br> ' + new Date(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf())).toUTCString() + " (Autoupdated)";
                     GM_setValue(universe + 'LastReset', lastResetText);
                     if (document.getElementById('lastResetText')) {
                         document.getElementById('lastResetText').innerHTML = 'Compared with data from: <br>' + lastResetText;
