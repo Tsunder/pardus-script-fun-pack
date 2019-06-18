@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.8
+// @version      1.3.9
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
@@ -159,7 +159,13 @@ minor text update
             function autoUpdateSavedValues() {
                 // gets the last time the stats page was updated.
                 let mostRecent = new Date(h1El.parentNode.querySelector('span.cached').childNodes[2].textContent)
-                if (mostRecent.valueOf() - GM_getValue(universe + "lastAutoUpdate", 0) > 0) {
+
+                let lastTickOfLastDay = new Date().setUTCHours(0,25,0,0);
+                lastTickOfLastDay -= 10800000; // minus three hours of time.
+                function ticksPast(now) {
+                    return Math.floor((now - lastTickOfLastDay)/10800000)
+                }
+                if (ticksPast(mostRecent.valueOf()) > ticksPast(GM_getValue(universe + "lastAutoUpdate", 0))) {
                     let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                     let tableElTables = tableEl.querySelectorAll('table');
                     autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
