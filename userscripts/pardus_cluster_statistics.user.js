@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.10
+// @version      1.3.11
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
@@ -181,7 +181,7 @@ minor text update
                 }
             }
 
-            GM_setValue(universe + "lastCheck", new Date(h1El.parentNode.querySelector('span.cached').childNodes[2].textContent));
+            GM_setValue(universe + "lastCheck", (new Date(h1El.parentNode.querySelector('span.cached').childNodes[2].textContent)).valueOf());
 
             // add in reminder toggle
             let reminderButtonEl = document.createElement('button');
