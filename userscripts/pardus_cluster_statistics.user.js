@@ -165,7 +165,7 @@ minor text update
                 function ticksSince(now) {
                     return Math.floor((now - lastTickOfLastDay)/10800000)
                 }
-                if (ticksSince(mostRecent.valueOf()) > ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) {
+                if (ticksSince(mostRecent.valueOf()) > ticksSince(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf()))) {
                     let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                     let tableElTables = tableEl.querySelectorAll('table');
                     autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
