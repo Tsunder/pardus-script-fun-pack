@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.11
+// @version      1.3.12
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
@@ -172,10 +172,10 @@ minor text update
                     autoUpdateSavedValuesForContingent(tableElTables[1]); // PEC
                     autoUpdateSavedValuesForContingent(tableElTables[2]); // PUC
                     // update the last time we reset to the current cached time
-                    let lastResetText = new Date(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf())).toUTCString() + " (Autoupdated)";
+                    let lastResetText = (ticksSince(mostRecent.valueOf()) - ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) + ' tick(s) ago<br> ' + new Date(GM_getValue(universe + "lastAutoUpdate", mostRecent.valueOf())).toUTCString() + " (Autoupdated)";
                     GM_setValue(universe + 'LastReset', lastResetText);
                     if (document.getElementById('lastResetText')) {
-                        document.getElementById('lastResetText').textContent = 'Compared with data from ' + (ticksSince(mostRecent.valueOf()) - ticksSince(GM_getValue(universe + "lastAutoUpdate", 0))) + ' tick(s) ago: ' + lastResetText;
+                        document.getElementById('lastResetText').innerHTML = 'Compared with data from: <br>' + lastResetText;
                     }
                     GM_setValue(universe + "lastAutoUpdate", mostRecent.valueOf());
                 }
