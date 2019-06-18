@@ -122,7 +122,6 @@ minor text update
                 }
                 // update the styling for all of the contingents
                 parseAllContginents();
-
             }
             */
 
@@ -158,9 +157,9 @@ minor text update
             }
 
             function autoUpdateSavedValues() {
-                //let now = Date.now();
+                // gets the last time the stats page was updated.
                 let mostRecent = new Date(h1El.parentNode.querySelector('span.cached').childNodes[2].textContent)
-                if (mostRecent.valueOf() - GM_getValue(universe + "lastAutoUpdate", 0) >= 10800000) {
+                if (mostRecent.valueOf() - GM_getValue(universe + "lastAutoUpdate", 0) > 0) {
                     let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                     let tableElTables = tableEl.querySelectorAll('table');
                     autoUpdateSavedValuesForContingent(tableElTables[0]); // PFC
@@ -175,7 +174,8 @@ minor text update
                     GM_setValue(universe + "lastAutoUpdate", mostRecent.valueOf());
                 }
             }
-            GM_setValue(universe + "lastCheck", Date.now());
+
+            GM_setValue(universe + "lastCheck", new Date(h1El.parentNode.querySelector('span.cached').childNodes[2].textContent));
 
             // add in reminder toggle
             let reminderButtonEl = document.createElement('button');
@@ -195,7 +195,9 @@ minor text update
             h1El.parentNode.appendChild(buttonEl);
             h1El.parentNode.appendChild(document.createElement("br"));
             buttonEl.addEventListener('click', resetTrackerForUniverse);
+            // add in the time the data is to be compared against
             let lastResetTextValue = GM_getValue(universe + 'LastReset', '');
+            //console.log(GM_getValue(universe + 'LastReset'));
             let lastResetText = document.createElement('span');
             if (lastResetTextValue !== '') {
                 lastResetText.id = 'lastResetText';
