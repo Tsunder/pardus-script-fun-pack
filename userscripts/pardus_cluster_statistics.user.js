@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         Pardus Cluster Statistics
 // @namespace    http://userscripts.xcom-alliance.info/, https://github.com/Tsunder/pardus-script-fun-pack
-// @version      1.3.6
+// @version      1.3.7
 // @description  Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page.
 // @author       Miche (Orion) / Sparkle (Artemis), featuring tsunder
 // @match        *.pardus.at/statistics.php*
 // @match        *.pardus.at/msgframe.php*
 // @grant        GM_getValue
 // @grant        GM_setValue
+// @grant        GM_listValues
+// @grant        GM_deleteValue
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_cluster_statistics.user.js
 // @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_cluster_statistics.user.js
 // ==/UserScript==
@@ -33,6 +35,7 @@ minor text update
     let lowPopThreshold = 1001;
 
     // automatically update population records when visiting page. default: true. options: true, false
+    // should really leave it on.
     let autoUpdate = true;
 
     //script stuff below, do not edit
@@ -71,11 +74,20 @@ minor text update
                     rowEl.style.color = color;
                     let title = 'No Change';
                     if (sbPopNew !== sbPopOld ) {
-                        title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+":"") + (sbPopNew - sbPopOld).toLocaleString() + ") (" + (sbPopNew > sbPopOld ? "+":"") + ((1 - (sbPopOld/sbPopNew))*100).toFixed(1) + "%)" ;
+                        title = 'Population was: ' + sbPopOld.toLocaleString() + " (" + (sbPopNew > sbPopOld ? "+":"") + (sbPopNew - sbPopOld).toLocaleString() + ")" ;
                     }
+                    //commenting out because lol
+                    //if (rowEl.children.length < 5) {
+                       //rowEl.lastChild.setAttribute("align","center");
+                        let proportionTD = document.createElement("td");
+                        proportionTD.innerText = (sbPopNew > sbPopOld ? "+":"") + ((1 - (sbPopOld/sbPopNew))*100).toFixed(1) + "%"
+                        proportionTD.setAttribute("align","right");
+                        rowEl.append(proportionTD);
+                    //}
                     rowEl.title = title;
                     rowEl.style.cursor = 'default';
                 }
+                tableEl.rows[0].children[0].setAttribute("colspan",5);
             }
 
             function parseAllContginents() {
@@ -95,6 +107,7 @@ minor text update
                 }
             }
 
+            /*
             function updateAllSavedValues() {
                 let tableEl = h1El.parentNode.parentNode.querySelector('table[width="100%"]');
                 let tableElTables = tableEl.querySelectorAll('table');
@@ -109,6 +122,13 @@ minor text update
                 }
                 // update the styling for all of the contingents
                 parseAllContginents();
+            }
+            */
+
+            function resetTrackerForUniverse() {
+                //deletes all saved values for this universe, then reloads page.
+                GM_listValues().filter( e => { return e.indexOf(universe) == 0} ).forEach( f => {GM_deleteValue(f)});
+                location.reload();
             }
 
             function toggleReminder() {
@@ -171,20 +191,23 @@ minor text update
             buttonEl.style.margin = '10px 0';
             buttonEl.style.padding = '5px 10px';
             h1El.parentNode.appendChild(buttonEl);
-            buttonEl.addEventListener('click', updateAllSavedValues);
+            h1El.parentNode.appendChild(document.createElement("br"));
+            buttonEl.addEventListener('click', resetTrackerForUniverse);
             // add in the time the data is to be compared against
             let lastResetTextValue = GM_getValue(universe + 'LastReset', '');
+            let lastResetText = document.createElement('span');
             if (lastResetTextValue !== '') {
-                let lastResetText = document.createElement('div');
                 lastResetText.id = 'lastResetText';
-                lastResetText.textContent = 'Compared with data from: ' + lastResetTextValue;
-                lastResetText.style.textAlign = 'center';
-                lastResetText.style.margin = '0 0 20px 0';
-                h1El.parentNode.appendChild(lastResetText);
+                lastResetText.innerHTML = 'Compared with data from: <br>' + lastResetTextValue;
             } else {
-                buttonEl.style.marginBottom = '20px';
-                updateAllSavedValues();
+                lastResetText.textContent = 'Starbase Populations Tracker Reset!!';
             }
+            lastResetText.setAttribute("class","cached");
+            lastResetText.style.textAlign = 'center';
+            lastResetText.style.margin = '0 0 20px 0';
+            h1El.parentNode.appendChild(lastResetText);
+            h1El.parentNode.appendChild(document.createElement("br"));
+            h1El.parentNode.appendChild(document.createElement("br"));
             if (autoUpdate) {
                 autoUpdateSavedValues();
             }
