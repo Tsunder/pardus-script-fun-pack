@@ -9,6 +9,9 @@ Some of these are made from scratch, others modifications of existing scripts. A
 
 ## Script Index
 
+### [Always Show Sector influence](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_Always%20Show%20Sector%20influence.user.js)
+Automatically opens up the Alliance Influence information drop-down when landing on a starbase/planet.
+
 ### [Alliance Member Filters](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
 Adds some filters for the members page in an alliance, such as Activity and Building Slots available. Requires being a Senior alliance member.
 
