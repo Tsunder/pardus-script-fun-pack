@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Territory Enhanced Statistics Tracking Et Saving
 // @namespace    https://github.com/Tsunder/pardus-script-fun-pack
-// @version      0.4.1
+// @version      0.4.2
 // @description  Adds buttons to parse and download some stats from the Territory statistics page.
 // @author       Tsunder
 // @match        *.pardus.at/statistics.php*
@@ -17,7 +17,7 @@
 
 (function() {
     'use strict';
-    let h1El = document.querySelector('h1');
+    let h1El = document.querySelector('h1') || "";
     if (h1El.textContent === 'Statistics - Alliance Territory') {
         let universe = window.location.host.substr(0, window.location.host.indexOf('.'))
         universe = universe.charAt(0).toUpperCase() + universe.slice(1);
@@ -58,7 +58,6 @@
         info.innerText = "Saving data in progress:";
         h1El.after(info);
         saveTheDay();
-        info.innerText = " Saved All Data for " + postDay() + "!\n";
         //also saves the fact that we have saved data for the day by getting the master history string, appending, and saving to it.
         function saveTheDay() {
             let history = GM_getValue(universe + "history",false);
@@ -71,6 +70,7 @@
             }
             let today = postDay();
             if(history.includes(today)) {
+                info.innerText = " Already Saved Data for " + postDay() + "!\n";
                 return;
             }
             info.innerText += " Saving list of alliances...";
@@ -82,6 +82,7 @@
             info.innerText += " Saving the day...";
             history.push(today);
             GM_setValue(universe + "history",JSON.stringify(history));
+            info.innerText = " Saved All Data for " + postDay() + "!\n";
         }
 
         function saveAllianceSummary(table){
@@ -279,4 +280,5 @@
             return text
         }
     }
+    else return;
 })();
