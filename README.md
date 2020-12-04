@@ -60,5 +60,8 @@ Displays profit when trading with other buildings.
 ### [Shadow Hibeams](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_shadow_highbeams.user.js)
 Shines a light on shadows so you don't miss them.
 
+### [Snow](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_snow.user.js)
+Adds animated snow to Pardus, perfect for creating a festive atmosphere.
+
 ### [Territory Enhanced Statistics Tracking Et Saving](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_territory_enhanced_statistics_tracking_et_saving.user.js)
 Tracks territory page data and adds options to download, as Territory, Diversity, and sector map.
