@@ -42,6 +42,9 @@ Enables fasater donating, right from the "drop cargo" screen!
 ### [Leech Overview](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_leech_overview.user.js)
 Shows estimated time until a leech repairs to full armor on ship overview screen.
 
+### [Mag Scoop Warning](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_mag_scoop_warning.user.js)
+Adds visual warning for having cargo in magnetic scoop.
+
 ### [Messaging ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_messaging.user.js)
 Adds some useful features to the standard IGM messaging in Pardus. Goes well with Multi-message. Based on work from Jirina.
 
