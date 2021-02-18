@@ -2,7 +2,7 @@
 // @name         Mag Scoop Warning
 // @namespace    https://github.com/Tsunder/
 // @version      0.2
-// @description  Adds visual warning for having cargo in mag scoop. For mmorpg Pardus.
+// @description  Adds visual warning for having cargo in magnetic scoop.
 // @author       Tsunder
 // @match        http*://*.pardus.at/main.php*
 // @grant        none
