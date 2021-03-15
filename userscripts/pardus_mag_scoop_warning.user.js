@@ -30,7 +30,6 @@
     }
 
     function run() {
-        console.log("running");
         let cargobox = document.getElementById("cargo_content")
         if (cargobox.innerText.indexOf("t in magnetic")>0) {
             let magwarning = document.getElementById("magwarning")
