@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Mag Scoop Warning
 // @namespace    Pardus
-// @version      0.3
+// @version      0.3.1
 // @description  displays mag scoop warning
 // @author       Tsunders
 // @match        *.pardus.at/main.php*
