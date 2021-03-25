@@ -21,9 +21,6 @@ When chat is open, periodically turns urls clickable.
 ### [Cluster Statistics](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_cluster_statistics.user.js)
 Indicate whether a starbase has increased or decreased it's population since the last time you viewed the Pardus Cluster Statistics page. Now with a reminder in the message bar. Based on Miche's version from Waistelands.
 
-### [Combat Log Map Links](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_log_map_links.user.js)
-Turns the sectors into clickable links to zaqwer's mapper.
-
 ### [Combat Screen Skills](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_combat_screen_skills.user.js)
 Adds a button to check combat skills, includes a handy "trade in" button for skills that are high enough.
 
@@ -41,6 +38,9 @@ Enables fasater donating, right from the "drop cargo" screen!
 
 ### [Leech Overview](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_leech_overview.user.js)
 Shows estimated time until a leech repairs to full armor on ship overview screen.
+
+### [Map Links](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_map_links.user.js)
+Turns the sectors into clickable links for combat logs and ACS logs.
 
 ### [Mag Scoop Warning](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_mag_scoop_warning.user.js)
 Adds visual warning for having cargo in magnetic scoop.
