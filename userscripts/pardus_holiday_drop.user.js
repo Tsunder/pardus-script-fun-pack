@@ -4,7 +4,7 @@
 // @version      0.3
 // @description  Adds a Donate button to your drop cargo screen! ^_^ Remember to disable this once the holiday drive is over!
 // @author       Tsunders
-// @match        *://*.pardus.at/drop_cargo.php*
+// @match        *.pardus.at/drop_cargo.php*
 // @grant        none
 // @icon         http://static.pardus.at/img/stdhq/128/ships/harrier_xmas.png
 // @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_holiday_drop.user.js
