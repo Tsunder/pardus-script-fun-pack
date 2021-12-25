@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters
-// @namespace    pardus.at
-// @version      0.4.1
+// @namespace    Pardus
+// @version      0.4.3
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -45,7 +45,10 @@
         ["Other Settings", [
             ["exactbuildingslots", "Only exact available building slots."],
             ["hasstarbase", "Only pilots who have a starbase."],
-            ["nostarbase", "Only pilots who do not have a starbase."]
+            ["nostarbase", "Only pilots who do not have a starbase."],
+            ["military","Only pilots who own military outposts"],
+            ["trading", "Only pilots who own trading outposts"],
+            ["garbage","Only pilots who own garbage buildings"] //fuel collectors, energy wells
             ]
          ]
         ];
@@ -61,10 +64,11 @@
         "longtime": "more&nbsp;than&nbsp;<br><b>6</b>&nbsp;months<br>ago"
     }
 
-    addControls();
     for (var i in members) {
         members[i].children[4].append("Free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
     }
+
+    addControls();
 
     function addControls () {
         var _br = document.createElement("br");
@@ -80,6 +84,9 @@
         addTable(_controlElement);
         //addFilterButton(_controlElement);
         addClearButton(_controlElement);
+
+        _controlElement.append(document.createElement("br"));
+        _controlElement.append(summary);
     }
 
     //adds all options to the options table.
@@ -156,6 +163,9 @@
         var _hasBuildings = filters[1].length == 0;
         var _hasActivity = filters[0].length == 0;
         var _starbase = true;
+        var _military = true;
+        var _garbage = true;
+        var _trading = true;
 
         for (var _member in members) {
 
@@ -194,8 +204,24 @@
                 _starbase = !(members[_member].children[4].innerHTML.indexOf("starbase") > -1);
             }
 
+            _military = true;
+            if (filters[2].includes("3")) { // checks has military outposts
+                _military = members[_member].children[4].innerHTML.indexOf("Military Outpost") > -1;
+            }
+
+            _trading = true;
+            if (filters[2].includes("4")) { // checks has military outposts
+                _trading = members[_member].children[4].innerHTML.indexOf("Trading Outpost") > -1;
+            }
+            _garbage = true;
+            if (filters[2].includes("5")) { // checks garbage buildings
+                _garbage = members[_member].children[4].innerHTML.search(/Energy Well|Fuel Collector|Gas Collector/) > -1
+            }
+
+
+
             //only shows if both activity and building slots are met
-            if (_hasActivity && _hasBuildings && _starbase) {
+            if (_hasActivity && _hasBuildings && _starbase && _military && _garbage && _trading) {
                 members[_member].removeAttribute("hidden");
                 _alternating = !_alternating; // changes the style
                 if (_alternating) {
@@ -211,7 +237,7 @@
 
     function getBuildingSlots(member) {
         var _exp = parseInt(member.children[2].innerText.replace(/,/g,''))
-        return Math.floor(Math.log10(_exp/10))
+        return Math.max(Math.floor(Math.log10(_exp/10)),0)
     }
 
     function getUsedBuildingSlots(member) {
