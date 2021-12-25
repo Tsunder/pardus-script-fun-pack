@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pardus Alliance Member Filters
 // @namespace    Pardus
-// @version      0.4.3
+// @version      0.4.4
 // @description  adds some sorting features to the members tab.
 // @author       Tsunder
 // @match        *://*.pardus.at/alliance_members.php*
@@ -64,8 +64,10 @@
         "longtime": "more&nbsp;than&nbsp;<br><b>6</b>&nbsp;months<br>ago"
     }
 
+    var freeslots = 0;
     for (var i in members) {
         members[i].children[4].append("Free slots: " + (getBuildingSlots(members[i]) - getUsedBuildingSlots(members[i])));
+        addFreeSlots(members[i]);
     }
 
     addControls();
@@ -85,6 +87,9 @@
         //addFilterButton(_controlElement);
         addClearButton(_controlElement);
 
+        var summary = document.createElement("div");
+        summary.id = "summary";
+        summary.innerText = `Free Slots: ${freeslots}`;
         _controlElement.append(document.createElement("br"));
         _controlElement.append(summary);
     }
@@ -132,7 +137,14 @@
     }
 
     function clearMembers() {
-        members.forEach((e)=>{e.removeAttribute("hidden")});
+        freeslots = 0;
+        members.forEach((e)=>{
+            e.removeAttribute("hidden");
+            addFreeSlots(e);
+        });
+        var summary = document.getElementById("summary")
+        summary.innerText = `Free Slots: ${freeslots}`;
+
         for (var i in FILTER_OPTIONS) {
             for (var j in FILTER_OPTIONS[i][1]) {
                 document.getElementById(FILTER_OPTIONS[i][1][j][0]).checked = false
@@ -149,6 +161,7 @@
             [],
             []
         ]
+        freeslots = 0;
         let _alternating = true; // alternates background colours
 
 
@@ -163,9 +176,24 @@
         var _hasBuildings = filters[1].length == 0;
         var _hasActivity = filters[0].length == 0;
         var _starbase = true;
-        var _military = true;
-        var _garbage = true;
-        var _trading = true;
+        var _positiveFilter = true;
+        var _filters = []
+        if (filters[2].includes("1")) { // checks has starbase
+            _filters.push("starbase")
+        }
+        if (filters[2].includes("3")) { // checks has military outposts
+            _filters.push("military_outpost")
+        }
+        if (filters[2].includes("4")) { // checks has trade outposts
+            _filters.push("trade_outpost")
+        }
+        if (filters[2].includes("5")) { // checks garbage buildings
+            _filters.push("fuel_collector|gas_collector|energy_well")
+        }
+        var _filterText = false
+        if (_filters.length> 0) {
+            _filterText = new RegExp(_filters.join("|"))
+        }
 
         for (var _member in members) {
 
@@ -196,34 +224,23 @@
             }
 
             //checks starbase filters
-            _starbase = true;
-            if (filters[2].includes("1")) { // checks has starbase
-                _starbase = members[_member].children[4].innerHTML.indexOf("starbase") > -1;
-            }
-            else if (filters[2].includes("2")) { // checks if doesn't have starbase
+            if (filters[2].includes("2")) { // checks if doesn't have starbase
                 _starbase = !(members[_member].children[4].innerHTML.indexOf("starbase") > -1);
             }
 
-            _military = true;
-            if (filters[2].includes("3")) { // checks has military outposts
-                _military = members[_member].children[4].innerHTML.indexOf("Military Outpost") > -1;
+            if (_filters.length> 0) {
+                _positiveFilter = members[_member].children[4].innerHTML.search(_filterText) > -1
             }
 
-            _trading = true;
-            if (filters[2].includes("4")) { // checks has military outposts
-                _trading = members[_member].children[4].innerHTML.indexOf("Trading Outpost") > -1;
-            }
-            _garbage = true;
-            if (filters[2].includes("5")) { // checks garbage buildings
-                _garbage = members[_member].children[4].innerHTML.search(/Energy Well|Fuel Collector|Gas Collector/) > -1
-            }
+            if (_hasActivity && _hasBuildings && _starbase && _positiveFilter) {
+                //this is where the lag begins, editing attributes
+                if(members[_member].getAttribute("hidden")) {
+                    members[_member].removeAttribute("hidden");
+                }
+                addFreeSlots(members[_member]);
 
-
-
-            //only shows if both activity and building slots are met
-            if (_hasActivity && _hasBuildings && _starbase && _military && _garbage && _trading) {
-                members[_member].removeAttribute("hidden");
                 _alternating = !_alternating; // changes the style
+                //this changing attribute part is the laggiest
                 if (_alternating) {
                     members[_member].setAttribute("class","alternating");
                 } else {
@@ -233,6 +250,8 @@
                 members[_member].setAttribute("hidden","hidden");
             }
         }
+        var summary = document.getElementById("summary")
+        summary.innerText = `Free Slots: ${freeslots}`;
     }
 
     function getBuildingSlots(member) {
@@ -242,5 +261,9 @@
 
     function getUsedBuildingSlots(member) {
         return member.children[4].querySelectorAll('img').length
+    }
+
+    function addFreeSlots(element) {
+        freeslots += Math.max(getBuildingSlots(element) - getUsedBuildingSlots(element),0);
     }
 })();
