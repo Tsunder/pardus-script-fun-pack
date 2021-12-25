@@ -48,7 +48,7 @@
             ["nostarbase", "Only pilots who do not have a starbase."],
             ["military","Only pilots who own military outposts"],
             ["trading", "Only pilots who own trading outposts"],
-            ["garbage","Only pilots who own garbage buildings"] //fuel collectors, energy wells
+            ["garbage","Only pilots who own garbage buildings"] //fuel collectors, energy wells, gas collectors.
             ]
          ]
         ];
