@@ -6,8 +6,8 @@
 // @author       Baldur
 // @include      *pardus.at/msgframe.php*
 // @include      *pardus.at/distresscall.php*
-// @downloadURL  
-// @updateURL    
+// @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_destress.user.js
+// @updateURL    https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_destress.user.js
 // @grant        GM_getValue
 // @grant        GM_setValue
 // ==/UserScript==
