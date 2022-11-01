@@ -15,6 +15,9 @@ Automatically opens up the Alliance Influence information drop-down when landing
 ### [Alliance Member Filters](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_alliance_member_filters.user.js)
 Adds some filters for the members page in an alliance, such as Activity and Building Slots available. Requires being a Senior alliance member.
 
+### [Black Market Sanity Lock](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_bm_sanity_lock.user.js)
+Adds a lock (on by default) to prevent trading uncommon purchases in black markets. AKA everything that isn't drugs, fuel, FWE, MOE, and military explosives.
+
 ### [Chat Links ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_chat_links.user.js)
 When chat is open, periodically turns urls clickable.
 
