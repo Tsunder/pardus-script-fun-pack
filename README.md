@@ -30,6 +30,9 @@ Adds a button to check combat skills, includes a handy "trade in" button for ski
 ### [Custom Portrait](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_custom_portrait.user.js)
 Allows setting custom images for a pilot. Supports one unique pilot per universe.
 
+### [Destress Call](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_destress.user.js)
+Calm your nerves with this one easy link. Pressable every 10 minutes.
+
 ### [Drop Trash ⭐](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_drop_trash.user.js)
 Enables faster dropping of low value goods.
 
