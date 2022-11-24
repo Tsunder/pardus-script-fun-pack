@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Blackmarket Sanity Lock
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Locks uncommon black market sales and purchases to reduce accidents.
 // @author       Tsunder
 // @match        *.pardus.at/blackmarket.php*
@@ -12,6 +12,10 @@
 // @downloadURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_bm_sanity_lock.user.js
 
 // ==/UserScript==
+
+// Changes
+// 0.1 initial creation
+// 0.2 fix not working with faction BMs where body parts are for sale
 
 (function() {
     'use strict';
@@ -28,7 +32,6 @@
     lockButton.type = "button";
     lockButton.addEventListener('click', toggleLock, false);
     lockButton.style = tradeButton.getAttribute("style");
-    refreshLockButton();
     tradeButton.parentElement.appendChild(lockButton);
 
 
@@ -72,7 +75,8 @@
         el.setAttribute('maxlength', 0)
         el.value = ""
 
-        let maxfill = el.parentElement.previousSibling.previousSibling.lastChild
+        let maxfill = el.parentElement.parentElement.children[2].lastChild
+        console.log(maxfill)
         maxfill.setAttribute('nohref', maxfill.getAttribute('href'));
         maxfill.removeAttribute('href');
     }
@@ -81,7 +85,7 @@
     function unlockRow(el) {
 
         el.setAttribute('maxlength', 20)
-        let maxfill = el.parentElement.previousSibling.previousSibling.lastChild
+        let maxfill = el.parentElement.parentElement.children[2].lastChild
         maxfill.setAttribute('href', maxfill.getAttribute('nohref'));
         maxfill.removeAttribute('nohref');
     }
