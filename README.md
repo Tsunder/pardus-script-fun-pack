@@ -39,6 +39,9 @@ Enables faster dropping of low value goods.
 ### [Easy Relog](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_easy_relog.user.js)
 Makes it slightly easier to get into your universe, maybe?
 
+### [Focus](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_focus.user.js)
+Window focus fix issue for chrome users. Only needed if having issues with keybinds not registering under some circumstances.
+
 ### [Holiday Drop](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_holiday_drop.user.js)
 Enables fasater donating, right from the "drop cargo" screen!
 
