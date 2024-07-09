@@ -7,6 +7,7 @@
 // @match        *.pardus.at/*
 // @exclude      *.pardus.at/msgframe.php*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=pardus.at
+// @downloardURL  https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_focus.user.js
 // @grant        none
 // ==/UserScript==
 
