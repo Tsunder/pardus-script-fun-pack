@@ -63,6 +63,9 @@ Enhances the Pardus message window to allow multiple recipients seperated by com
 ### [Navigation Objects Namer](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_navigation_objects_namer.user.js)
 Names NPCs and ships on nav screen.
 
+## [Peacemaker No Premium Attack Buttons](https://github.com/Tsunder/pardus-script-fun-pack/raw/refs/heads/master/userscripts/Peacemaker%20No%20Premium%20Attack%20Buttons.user.js)
+Hides the premium attack buttons against NPCs. This should help avoid accidental attacks against NPCs. Includes a toggle to temporarily enable attacking.
+
 ### [Relations Randomizer](https://github.com/Tsunder/pardus-script-fun-pack/raw/master/userscripts/pardus_relations_randomizer.user.js)
 randomizes the relations gains/losses. Why would you want this? I don't know. WIP
 
