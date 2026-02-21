@@ -2,8 +2,8 @@
 // @name         Peacemaker No Premium Attack Buttons
 // @namespace    Tsunders
 // @version      2026-02-21
-// @description  Hides the premium attack buttons against NPCs. This should help avoi
-// @author       You
+// @description  Hides the premium attack buttons against NPCs. This should help avoid accidental attacks against NPCs.
+// @author       Tsunders
 // @match        *.pardus.at/ship2opponent_combat.php*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=pardus.at
 // @grant        none
@@ -11,8 +11,13 @@
 
 (function() {
     'use strict';
-let button1 = document.getElementsByName("button1")
-if (button1.length>0){
+    let ok = document.getElementsByName("ok")
+    if (ok.length <1) {
+        return;
+    }
+    ok = ok[0]
+    let button1 = document.getElementsByName("button1")
+    if (button1.length>0){
     button1[0].setAttribute("class","disabled")
     var button2 = document.getElementsByName("button2")[0]
     var button3 = document.getElementsByName("button3")[0]
@@ -22,9 +27,15 @@ if (button1.length>0){
     button3.setAttribute("class","disabled")
     button4.setAttribute("class","disabled")
     button5.setAttribute("class","disabled")
+    button1[0].disabled = true
+    button2.disabled=true
+    button3.disabled=true
+    button4.disabled=true
+    button5.disabled=true
+
 }
-    let ok = document.getElementsByName("ok")[0]
     ok.setAttribute("class","disabled")
+    ok.disabled = true
     ok.parentElement.append(document.createElement("br"))
 
 
@@ -42,6 +53,7 @@ if (button1.length>0){
         var state = this.checked ? "enabled" : "disabled";
         if (button1.length>0){
             button1[0].setAttribute("class",state)
+            button1[0].disabled = !this.checked
             var button2 = document.getElementsByName("button2")[0]
             var button3 = document.getElementsByName("button3")[0]
             var button4 = document.getElementsByName("button4")[0]
@@ -50,8 +62,14 @@ if (button1.length>0){
             button3.setAttribute("class",state)
             button4.setAttribute("class",state)
             button5.setAttribute("class",state)
+            button2.disabled = !this.checked
+            button3.disabled = !this.checked
+            button4.disabled = !this.checked
+            button5.disabled = !this.checked
             }
-        document.getElementsByName("ok")[0].setAttribute("class",state)
+        ok.setAttribute("class",state)
+        ok.disabled = !this.checked
+
         }
 )
 })();
